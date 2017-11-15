@@ -15,14 +15,61 @@
                   {:id "Veggie Quesadilla" :class "entree" :price ""}
                   {:id "Classic French Dip" :class "entree" :price ""}
                   {:id "Veggie Wrap" :class "entree" :price ""}
-                  {:id "Jumbo Wings" :class "entree" :price ""}
+                  {:id "Jumbo Wings" :class "entree" :price "" :sauce (sauces)}
                   {:id "Spicy Pork Belly Sandwich" :class "entree" :price ""}
                   {:id "Pub Turkey Club" :class "entree" :price ""}]
-   "salads" [:class "entree"]
-   "burgers"
-   "desserts"
-   "sides"
-   "drinks"})
+   "salads" [{:id "Caesar Salad" :class "entree" :price ""
+              :id "Caesar Salad w/ Tofu" :class "entree" :price ""
+              :id "Caesar Salad w/ Grilled Chicken" :class "entree" :price ""
+              :id "Cobb Salad" :class "entree" :price "" :dressing (dressings)
+              :id "Cobb Salad w/ Tofu" :class "entree" :price "" :dressing (dressings)
+              :id "Cobb Salad w/ Grilled Chicken" :class "entree" :price "" :dressing (dressings)
+              :id "Cobb Salad w/ Fried Chicken" :class "entree" :price "" :dressing (dressings)}]
+   "burgers" [{:id "Pub Burger" :class "entree" :price "" :cheese (cheeses)
+               :id "Pub Burger w/ Bacon" :class "entree" :price "" :cheese (cheeses)
+               :id "Vegan Burger" :class "entree" :price ""}]
+   "desserts" [{:id "Chocolate Chip Cookie" :class "side" :price ""
+                :id "Ghirardelli Brownie" :class "side" :price ""
+                :id "Ghirardelli Brownie w/ Vanilla Ice Cream" :class "entree" :price ""
+                :id "Milkshake" :class "entree" :price "" :flavor (flavors)
+                :id "Root Beer Float" :class "entree" :price ""}]
+   "sides" [{:id "Pub Fries" :class "side" :price ""
+             :id "Onion Rings" :class "side" :price ""
+             :id "Tortilla Chips" :class "side" :price ""
+             :id "Kettle Chips" :class "side" :price ""
+             :id "Cajun Sweet Potato Fries" :class "side" :price ""
+             :id "Cut Fruit" :class "side" :price ""
+             :id "Side Salad" :class "side" :price "" :dressing (dressings)
+             :id "Chips & Salsa" :class "side" :price ""
+             :id "Chips & Guacamole" :class "side" :price ""
+             :id "Chips & Queso" :class "side" :price ""}]
+   "drinks" [{:id "Fountain Drink" :class "side" :price ""
+              :id "Bottled Water" :class "side" :price ""}]})
+
+(defn sauces []
+  {:sauce "Buffalo"
+   :sauce "BBQ"
+   :sauce "Asian"
+   :sauce "Sriracha Honey"
+   :sauce "Buffalo"
+   :sauce "Buff-A-Que"
+   :sauce "Plain"})
+
+(defn dressings []
+  {:dressing ""})
+
+(defn cheeses []
+  {:cheese "American"
+   :cheese "Swiss"
+   :cheese "Cheddar"
+   :cheese "Provolone"})
+
+(defn flavors []
+  {:flavor "Chocolate"
+   :flavor "Strawberry"
+   :flavor "Vanilla"
+   :flavor "Special"})
+
 
 (defn messages-initial-state
   []
