@@ -49,25 +49,25 @@
 ;order atom - w/ initial quantity to 0
 
 
-(defn add-msg! []
-  (messages-add! @current-channel @msg-entry)
-  (reset! msg-entry ""))
+;(defn add-msg! []
+ ; (messages-add! @current-channel @msg-entry)
+  ;(reset! msg-entry ""))
 
 (defn add-item!) []
   (items-add! @order-state)
   (reset!)
 
-(defn add-channel! [channel]
-  (if (not-any? #(= channel %) @channels)
-    (do
-      (POST (str "/channel/" channel)
-          {:params {:msg "Channel start"}
-           :response-format :json
-           :format :json
-           :keywords? true
-           :error-handler error-handler
-           :handler (fn [r] (log "msg posted to server"))})
-      (swap! channels conj channel))))
+;(defn add-channel! [channel]
+ ; (if (not-any? #(= channel %) @channels)
+  ;  (do
+   ;   (POST (str "/channel/" channel)
+    ;      {:params {:msg "Channel start"}
+     ;      :response-format :json
+      ;     :format :json
+       ;    :keywords? true
+        ;   :error-handler error-handler
+         ;  :handler (fn [r] (log "msg posted to server"))
+      ;(swap! channels conj channel))
 
 
 ;; ==========================================================================
