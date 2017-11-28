@@ -30,20 +30,18 @@
 ;; etc.
 ;; ==========================================================================
 
-(def user {:name "Anonymous" :nickname "Anonymous Nickname" :picture ""})
-
-(def app-state (atom (messaging/messages-initial-state)))
+(def user {:id "Commodore Card Number"})
 
 (defn channels-list
   "List the set of currently known channels"
   [] (json (messaging/channels-list @app-state)))
 
-(defn messages-get
+(defn items-get
   "Return the messages in a specific channel"
   [id]
   (json (messaging/messages-get @app-state id)))
 
-(defn msg-create
+(defn item-create
   "Utility function to create a message data
    structure"
   [msg userobj]
@@ -52,7 +50,7 @@
         time (System/currentTimeMillis)]
       {:msg msg :time time :user user}))
 
-(defn messages-add!
+(defn items-add!
    "Add a message to the specified channel"
    [channel msg-data user-obj]
    (let [msg (msg-create msg-data user-obj)]

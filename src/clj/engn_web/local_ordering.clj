@@ -5,9 +5,9 @@
 ;; Functions to add / list messages and channels
 ;; ==========================================================================
 
-(defn categories []
-  {"Specialties" [{:id "Chicken Tenders" :class "entree" :price ""}
-                  {:id "Nashville Hot Chicken Sandwich" :class "entree" :price ""}
+(defn order-initial-state []
+  {[{:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price ""
                   {:id "Southern Chicken Wrap" :class "entree" :price ""}
                   {:id "Jack & Cheddar Quesadilla" :price ""}
                   {:id "Jack & Cheddar Quesadilla w/ Grilled Chicken" :price ""}
@@ -17,7 +17,7 @@
                   {:id "Veggie Wrap" :class "entree" :price ""}
                   {:id "Jumbo Wings" :class "entree" :price ""} :attribute (sauces)
                   {:id "Spicy Pork Belly Sandwich" :class "entree" :price ""}
-                  {:id "Pub Turkey Club" :class "entree" :price ""}]
+                  {:id "Pub Turkey Club" :class "entree" :price ""}}]
    "Salads"      [{:id "Caesar Salad" :class "entree" :price ""}
                   {:id "Caesar Salad w/ Tofu" :class "entree" :price ""}
                   {:id "Caesar Salad w/ Grilled Chicken" :class "entree" :price ""}
