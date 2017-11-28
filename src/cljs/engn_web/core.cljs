@@ -32,56 +32,30 @@
 ;; App State
 ;; ==========================================================================
 
-(defonce channels (atom []))
-(defonce msgs (atom []))
-(defonce msg-entry (atom ""))
-(defonce chnl-entry (atom ""))
-(defonce current-channel (atom ""))
-(defonce scroll-msgs (atom false))
-(defonce nav-open? (atom true))
-(defonce add-channel-dialog-open? (atom false))
-(defonce user (js->clj js/user :keywordize-keys true))
 
+(defonce order-state (atom {:quantity 0 :user "" :total 0 :comment ""}))
+
+(defonce quantity (atom {:quantity 0 :id ""}))
 
 ;; ==========================================================================
 ;; Functions to send / receive messages and list channels
 ;; ==========================================================================
 
-(GET "/channel" {:response-format :json
-                 :keywords? true
-                 :error-handler error-handler
-                 :handler (fn [r] (reset! channels r)(println "swap done: " @channels))})
 
-(defn messages-load [channel]
-  (GET (str "/channel/" channel)
-       {:response-format :json
-        :keywords? true
-        :error-handler error-handler
-        :handler (fn [r] (println r)(reset! msgs r))}))
+; dropdown for just attributes; list menu items
+; quantity dropdown if attributes
+;
 
-(defn open-channel [channel]
-   (reset! current-channel channel)
-   (messages-load channel))
+;order atom - w/ initial quantity to 0
 
-(defn push [msgs msg]
-  (conj (seq msgs) msg))
-
-(defn messages-add! [channel msg]
-  (POST (str "/channel/" channel)
-       {:params {:msg msg}
-        :response-format :json
-        :format :json
-        :keywords? true
-        :error-handler error-handler
-        :handler (fn [r] (log "msg posted to server"))})
-  (swap! msgs push {:msg msg
-                    :user user
-                    :time (time-coerce/to-long (time/now))})
-  (.setTimeout js/window #(.scrollTo js/window 0 (+ 0 (.-scrollHeight (.-body js/document)))) 250))
 
 (defn add-msg! []
   (messages-add! @current-channel @msg-entry)
   (reset! msg-entry ""))
+
+(defn add-item!) []
+  (items-add! @order-state)
+  (reset!)
 
 (defn add-channel! [channel]
   (if (not-any? #(= channel %) @channels)
@@ -100,115 +74,49 @@
 ;; View components
 ;; ==========================================================================
 
-(defn message [m]
-  (let [name (:nickname (:user m))
-        text (:msg m)
-        class (if @nav-open? "message open" "message closed")
-        formatter (time-format/formatter "MM/dd/yyyy hh:mm:ss")
-        formatted-time (time-format/unparse formatter (time-coerce/from-long (:time m)))]
-      [ui/Card {:class class}
-       [ui/CardHeader {:title name
-                       :subtitle formatted-time
-                       :avatar "https://s.gravatar.com/avatar/a9edda10d0e6fb75561f057d167a9077?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fju.png";"http://placehold.it/50/55C1E7/fff&text=U"
-                       :actAsExpander true
-                       :showExpandableButton false}]
-       [ui/CardText text]]))
+(defn menu-design [menu-items]
+  [:div
+   (for [item menu-items]
+     [ui/List
+      [ui/ListItem { :label item}
+               :on-click #(swap! quantity assoc :quantity (+ 1 :quantity))]]
+     [ui/])])
 
-(defn messages [ms]
-  [:div {:style {:margin-bottom "100px"}}
-    (for [msg ms]
-      ^{:key msg} [message msg])])
+(defn update-quantity![]
+  ())
 
-(defn channel [c]
-  [ui/ListItem {:leftIcon (icon "label_outline")
-                ;:rightIcon [icon "chat"]
-                :primaryText (str "#" c)
-                :onTouchTap #(open-channel c)}])
+(defn add-comments! []
+  [ui/CardText
+   [ui/TextField {:floatingLabelText "Comments"
+                  :onChange #(swap! order-state assoc :comment %2)}]
+   [ui/RaisedButton {:label "Enter"
+                     :on-click #(swap! order-state comment)}]])
 
-
-(defn channel-list []
-  [ui/List
-   [ui/Subheader "Channels"
-    [ui/ListItem {:leftIcon (icon "add_circle_outline")
-                  :primaryText "Add Channel"
-                  :onTouchTap #(do (println @add-channel-dialog-open?)(reset! add-channel-dialog-open? true))}]
-    (for [c @channels]
-         ^{:key c} [channel c])]])
-
-(defn channel-add-dialog []
-  (let [hide-dialog #(reset! add-channel-dialog-open? false)]
-    [ui/Dialog {:open @add-channel-dialog-open?
-                :title "Dialog With Date Picker"
-                :actions [ (el [ui/FlatButton {:label "Cancel" :primary false :onTouchTap hide-dialog}])
-                           (el [ui/FlatButton {:label "OK" :primary true :onTouchTap #(do
-                                                                                        (add-channel! @chnl-entry)
-                                                                                        (hide-dialog))}])]
-                :modal false}
-      [ui/TextField
-           {:style {:width "400px" :margin-left "20px"}
-            :floatingLabelText "Channel name"
-            :floatingLabelFixed false
-            :onChange #(reset! chnl-entry (-> % .-target .-value))}]]))
-         ; :value @msg-entry}]])
-
-
-;; create a new theme based on the dark theme from Material UI
-; (defonce theme-defaults {:muiTheme (ui/getMuiTheme
-;                                     (-> ui/darkBaseTheme
-;                                         (js->clj :keywordize-keys true)
-;                                         (update :palette merge {:primary1Color (color "amber500")
-;                                                                 :primary2Color (color "amber700")})
-;                                         clj->js))})
-
-(defn simple-nav []
-  (let [close #(reset! nav-open? false)]
-    (fn []
-      [:div#header
-       [ui/AppBar {:title "chat engn" :onLeftIconButtonTouchTap #(reset! nav-open? true)}
-        [ui/IconMenu {:iconButtonElement (el [ui/IconButton {:style {:color "#FFF"}} (icon "more_vert")])
-                                         :targetOrigin {:horizontal "right" :vertical "top"}
-                                         :anchorOrigin {:horizontal "right" :vertical "top"}}
-          [ui/MenuItem {:primaryText "Sign out" :onTouchTap #(aset js/document "location" "/logout")}]]]
-       [ui/Drawer {:open @nav-open?
-                   :docked true
-                   :style {:z-index 10001}
-                   :containerStyle {:z-index 10001}}
-        [ui/AppBar {:title "chat engn" :onLeftIconButtonTouchTap #(reset! nav-open? false)}]
-
-        [ui/List
-         [ui/ListItem {:disabled true}
-             [ui/Avatar {:size 150 :src (:picture user) :style {:margin-left "30px"}}]]
-         [ui/ListItem {:leftIcon (icon "person_outline")
-                       :primaryText (:nickname user)}]
-         [ui/ListItem {:leftIcon (icon "person_outline")
-                       :primaryText (:name user)}]]
-        [ui/List ;{:style {:background-color "#F9FBE7" :height "100%"}}
-         [ui/Divider]
-         [channel-list]]]])))
+(defn add-name! []
+  [ui/CardText
+   [ui/TextField {:floatingLabelText "Please Enter Your Commodore ID Number"
+                  :onChange #(swap! order-state assoc :user %2)}]
+   [ui/RaisedButton {:label "Enter"
+                     :on-click #(swap! order-state user)}]])
 
 (defn main-page []
-  (let [class (if @nav-open? "message open" "message closed")]
+  [add-name]
+
+  (let [menu-items (add-item id)
+        current-user(:user @order-state)
+        current-price (:total @order-state)]
    [ui/MuiThemeProvider ;theme-defaults
     [:div
-     [channel-add-dialog]
-     [simple-nav]
-     [:div {:style {:padding "10px 10px 10px 10px"}}
-      [ui/Card {:class class :style {:margin-top "60px"}}
-        [ui/CardHeader {:title (str "#" @current-channel)}]]
-      (messages (reverse @msgs))]
-     [:footer {:class class}
-       [ui/Toolbar {:style {:align "center"}}
-         [ui/ToolbarGroup {:style {:width "70%"}}
-           [:div {:style {:width "10px"}}]
-           [ui/ToolbarSeparator]
-           [ui/TextField
-                {:style {:width "800px" :margin-left "20px"}
-                 :floatingLabelText "What would you like to say..."
-                 :floatingLabelFixed false
-                 :onChange #(reset! msg-entry (-> % .-target .-value))
-                 :value @msg-entry
-                 :on-key-press (fn [e](if (= 13 (.-charCode e)) (add-msg!)))}]
-           [ui/RaisedButton {:label "Send" :primary true :onTouchTap add-msg!}]]]]]]))
+
+     [menu-design]
+
+     [:b [:big "Please Add Comments:"]]
+     [add-comments]
+     [:b]
+     [:b [:big "Your Order Comes To: " [current-price]]]
+
+     ;;not sure what to do with this
+     [ui/RaisedButton {:label "Send" :primary true :on-click send-order!!}]]]))
 
 
 
