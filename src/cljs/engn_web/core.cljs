@@ -74,8 +74,13 @@
 ;; View components
 ;; ==========================================================================
 
+(defn change-order [id value @order-state])
+     
+
+
 (defn menu-design [menu categories]
   [:div
+   ;;not sure how to get the specific tags for each item
    (for [categories menu]
     (if (= categories (item.category))
         [ui/ListItem
