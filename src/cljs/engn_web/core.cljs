@@ -74,25 +74,24 @@
 ;; View components
 ;; ==========================================================================
 
-(defn menu-design [menu-items]
+(defn menu-design [menu categories]
   [:div
-   (for [item menu-items]
-     [ui/List
-      [ui/ListItem { :label item}
-               :on-click #(swap! quantity assoc :quantity (+ 1 :quantity))]]
-     [ui/])])
+   [ui/List
+    (for [category categories]
+      [ui/Textfield {:floatingLabelTest category}])
 
-(defn update-quantity![]
-  ())
+    [ui/ListItem { :label item}
+               :on-click #(swap! quantity assoc :quantity (+ 1 :quantity))
+     [ui/]]]])
 
-(defn add-comments! []
+(defn add-comments1 []
   [ui/CardText
    [ui/TextField {:floatingLabelText "Comments"
                   :onChange #(swap! order-state assoc :comment %2)}]
    [ui/RaisedButton {:label "Enter"
                      :on-click #(swap! order-state comment)}]])
 
-(defn add-name! []
+(defn add-name []
   [ui/CardText
    [ui/TextField {:floatingLabelText "Please Enter Your Commodore ID Number"
                   :onChange #(swap! order-state assoc :user %2)}]
@@ -100,7 +99,7 @@
                      :on-click #(swap! order-state user)}]])
 
 (defn main-page []
-  [add-name]
+  (add-name)
 
   (let [menu-items (add-item id)
         current-user(:user @order-state)
@@ -116,7 +115,7 @@
      [:b [:big "Your Order Comes To: " [current-price]]]
 
      ;;not sure what to do with this
-     [ui/RaisedButton {:label "Send" :primary true :on-click send-order!!}]]]))
+     [ui/RaisedButton {:label "Order" :primary true :on-click send-order!!}]]]))
 
 
 

@@ -24,39 +24,6 @@
   [data]
   {:status 200 :headers json-header :body data})
 
-
-;; ==========================================================================
-;; The JSON REST API for sending messages, listing channels,
-;; etc.
-;; ==========================================================================
-
-(def user {:id "Commodore Card Number"})
-
-(defn channels-list
-  "List the set of currently known channels"
-  [] (json (messaging/channels-list @app-state)))
-
-(defn items-get
-  "Return the messages in a specific channel"
-  [id]
-  (json (messaging/messages-get @app-state id)))
-
-(defn item-create
-  "Utility function to create a message data
-   structure"
-  [msg userobj]
-  (let [{:keys [name nickname]} userobj
-        user {:name name :nickname nickname}
-        time (System/currentTimeMillis)]
-      {:msg msg :time time :user user}))
-
-(defn items-add!
-   "Add a message to the specified channel"
-   [channel msg-data user-obj]
-   (let [msg (msg-create msg-data user-obj)]
-    (json (swap! app-state messaging/messages-add channel msg))))
-
-
 ;; ==========================================================================
 ;; Functions to render the HTML for the single-page application
 ;; ==========================================================================
@@ -69,16 +36,6 @@
       [:p "please run "
        [:b "lein figwheel"]
        " in order to start the compiler (this page may self-destruct)"]])
-
-(defn include-user
-  "This function inserts the user information directly into a <script> tag
-   so that it can be accessed via Javascript in the 'user' variable"
-  [user]
-  (if-not (nil? user)
-    [:script
-     (str "var user = {name:\"" (:name user)
-          "\",nickname:\"" (:nickname user)
-          "\", picture:\"" (:picture user) "\"}")]))
 
 (defn head [user]
   "Function to generate the <head> tag in the main HTML page that is
@@ -109,10 +66,6 @@
 
 (defroutes routes
   (GET "/" request (main-page user))
-  (GET "/channel" [] (channels-list))
-  (GET "/channel/:id" [id] (messages-get id))
-  (POST "/channel/:id" [id msg :as request] (messages-add! id msg user))
-  (resources "/")
   (not-found "Not Found"))
 
 
