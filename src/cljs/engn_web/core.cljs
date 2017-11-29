@@ -74,8 +74,9 @@
 ;; View components
 ;; ==========================================================================
 
-(defn change-order [id value @order-state])
-     
+(defn change-order [id value @order-state]
+   ;assoc value with item
+   (assoc id value))
 
 
 (defn menu-design [menu categories]
@@ -111,6 +112,12 @@
                   :onChange #(swap! order-state assoc :user %2)}]
    [ui/RaisedButton {:label "Enter"
                      :on-click #(swap! order-state user)}]])
+
+
+(defn send-order []
+  (for item menu-items))
+
+
 
 (defn main-page []
   (add-name)
