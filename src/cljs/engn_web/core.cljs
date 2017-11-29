@@ -53,9 +53,9 @@
  ; (messages-add! @current-channel @msg-entry)
   ;(reset! msg-entry ""))
 
-(defn add-item!) []
-  (items-add! @order-state)
-  (reset!)
+;(defn add-item!) []
+ ; (items-add! @order-state)
+  ;(reset!))
 
 ;(defn add-channel! [channel]
  ; (if (not-any? #(= channel %) @channels)
@@ -99,7 +99,7 @@
                :on-click #(swap! quantity assoc :quantity (+ 1 :quantity))
      [ui/]]]])
 
-(defn add-comments1 []
+(defn add-comments []
   [ui/CardText
    [ui/TextField {:floatingLabelText "Comments"
                   :onChange #(swap! order-state assoc :comment %2)}]
@@ -128,15 +128,15 @@
    [ui/MuiThemeProvider ;theme-defaults
     [:div
 
-     [menu-design]
+     (menu-design)
 
      [:b [:big "Please Add Comments:"]]
-     [add-comments]
+     (add-comments)
      [:b]
      [:b [:big "Your Order Comes To: " [current-price]]]
 
      ;;not sure what to do with this
-     [ui/RaisedButton {:label "Order" :primary true :on-click send-order!!}]]]))
+     [ui/RaisedButton {:label "Order" :primary true :on-click (send-order)}]]]))
 
 
 
