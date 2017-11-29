@@ -6,45 +6,45 @@
 ;; ==========================================================================
 
 (defn order-initial-state []
-  {[{:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price ""}]
-   [{:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price ""
-                  {:id "Southern Chicken Wrap" :class "entree" :price ""}
-                  {:id "Jack & Cheddar Quesadilla" :price ""}
-                  {:id "Jack & Cheddar Quesadilla w/ Grilled Chicken" :price ""}
-                  {:id "Jack & Cheddar Quesadilla w/ Fried Chicken" :price ""}
-                  {:id "Veggie Quesadilla" :class "entree" :price ""}
-                  {:id "Classic French Dip" :class "entree" :price ""}
-                  {:id "Veggie Wrap" :class "entree" :price ""}
-                  {:id "Jumbo Wings" :class "entree" :price ""} :attribute (sauces)
-                  {:id "Spicy Pork Belly Sandwich" :class "entree" :price ""}
-                  {:id "Pub Turkey Club" :class "entree" :price ""}}]
-   "Salads"      [{:id "Caesar Salad" :class "entree" :price ""}
-                  {:id "Caesar Salad w/ Tofu" :class "entree" :price ""}
-                  {:id "Caesar Salad w/ Grilled Chicken" :class "entree" :price ""}
-                  {:id "Cobb Salad" :class "entree" :price "" :attribute (dressings)}
-                  {:id "Cobb Salad w/ Tofu" :class "entree" :price "" :attribute (dressings)}
-                  {:id "Cobb Salad w/ Grilled Chicken" :class "entree" :price "" :attribute (dressings)}
-                  {:id "Cobb Salad w/ Fried Chicken" :class "entree" :price "" :attribute (dressings)}]
-   "Burgers"     [{:id "Pub Burger" :class "entree" :price "" :attribute (cheeses)}
-                  {:id "Pub Burger w/ Bacon" :class "entree" :price "" :attribute (cheeses)}
-                  {:id "Vegan Burger" :class "entree" :price ""}]
-   "Desserts"    [{:id "Chocolate Chip Cookie" :class "side" :price ""}
-                  {:id "Ghirardelli Brownie" :class "side" :price ""}
-                  {:id "Ghirardelli Brownie w/ Vanilla Ice Cream" :class "entree" :price ""}
-                  {:id "Milkshake" :class "entree" :price "" :attribute (flavors)}
-                  {:id "Root Beer Float" :class "entree" :price ""}]
-   "Sides"       [{:id "Pub Fries" :class "side" :price ""}
-                  {:id "Onion Rings" :class "side" :price ""}
-                  {:id "Tortilla Chips" :class "side" :price ""}
-                  {:id "Kettle Chips" :class "side" :price ""}
-                  {:id "Cajun Sweet Potato Fries" :class "side" :price ""}
-                  {:id "Cut Fruit" :class "side" :price ""}
-                  {:id "Side Salad" :class "side" :price "" :attribute (dressings)}
-                  {:id "Chips & Salsa" :class "side" :price ""}
-                  {:id "Chips & Guacamole" :class "side" :price ""}
-                  {:id "Chips & Queso" :class "side" :price ""}]
-   "Drinks"      [{:id "Fountain Drink" :class "side" :price ""}
-                  {:id "Bottled Water" :class "side" :price ""}]})
+  {[{:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price 6.00}]
+   [{:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7.00
+                  {:id "Southern Chicken Wrap" :class "entree" :price 6.00}
+                  {:id "Jack & Cheddar Quesadilla" :price 6.00}
+                  {:id "Jack & Cheddar Quesadilla w/ Grilled Chicken" :price 7.00}
+                  {:id "Jack & Cheddar Quesadilla w/ Fried Chicken" :price 7.00}
+                  {:id "Veggie Quesadilla" :class "entree" :price 6.00}
+                  {:id "Classic French Dip" :class "entree" :price 7.00}
+                  {:id "Veggie Wrap" :class "entree" :price 6.00}
+                  {:id "Jumbo Wings" :class "entree" :price 6.00} :attribute (sauces)
+                  {:id "Spicy Pork Belly Sandwich" :class "entree" :price 7.00}
+                  {:id "Pub Turkey Club" :class "entree" :price 6.00}}]
+   "Salads"      [{:id "Caesar Salad" :class "entree" :price 6.00}
+                  {:id "Caesar Salad w/ Tofu" :class "entree" :price 8.00}
+                  {:id "Caesar Salad w/ Grilled Chicken" :class "entree" :price 8.00}
+                  {:id "Cobb Salad" :class "entree" :price 6.00 :attribute (dressings)}
+                  {:id "Cobb Salad w/ Tofu" :class "entree" :price 8.00 :attribute (dressings)}
+                  {:id "Cobb Salad w/ Grilled Chicken" :class "entree" :price 8.00 :attribute (dressings)}
+                  {:id "Cobb Salad w/ Fried Chicken" :class "entree" :price 8.00 :attribute (dressings)}]
+   "Burgers"     [{:id "Pub Burger" :class "entree" :price 6.00 :attribute (cheeses)}
+                  {:id "Pub Burger w/ Bacon" :class "entree" :price 7.00 :attribute (cheeses)}
+                  {:id "Vegan Burger" :class "entree" :price 6.00}]
+   "Desserts"    [{:id "Chocolate Chip Cookie" :class "side" :price 1.29}
+                  {:id "Ghirardelli Brownie" :class "side" :price 1.29}
+                  {:id "Ghirardelli Brownie w/ Vanilla Ice Cream" :class "entree" :price 4.50}
+                  {:id "Milkshake" :class "entree" :price 4.00 :attribute (flavors)}
+                  {:id "Root Beer Float" :class "entree" :price 4.00}]
+   "Sides"       [{:id "Pub Fries" :class "side" :price 1.50}
+                  {:id "Onion Rings" :class "side" :price 2.00}
+                  {:id "Tortilla Chips" :class "side" :price 1.50}
+                  {:id "Kettle Chips" :class "side" :price 1.50}
+                  {:id "Cajun Sweet Potato Fries" :class "side" :price 1.50}
+                  {:id "Cut Fruit" :class "side" :price 1.50}
+                  {:id "Side Salad" :class "side" :price 1.50 :attribute (dressings)}
+                  {:id "Chips & Salsa" :class "side" :price 2.50}
+                  {:id "Chips & Guacamole" :class "side" :price 3.00}
+                  {:id "Chips & Queso" :class "side" :price 3.00}]
+   "Drinks"      [{:id "Fountain Drink" :class "side" :price 1.79}
+                  {:id "Bottled Water" :class "side" :price 1.69}]})
 
 (defn sauces []
   {:sauce "Buffalo"
