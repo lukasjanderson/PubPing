@@ -76,6 +76,15 @@
 
 (defn menu-design [menu categories]
   [:div
+   (for [categories menu]
+    (if (= categories (item.category))
+        [ui/ListItem
+         {:primaryText item
+          :secondaryText item.price
+          :leftAvatar [ui/TextField :defaultValue item.quantity
+                                    :onChange (change-order id value @order-state)]}]))]
+;;old code below
+  [:div
    [ui/List
     (for [category categories]
       [ui/Textfield {:floatingLabelTest category}])
