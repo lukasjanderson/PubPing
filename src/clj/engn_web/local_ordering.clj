@@ -72,12 +72,12 @@
    :flavor "Special"})
 
 (defn categories []
-  {:category "Specialties"
-   :category "Salads"
-   :category "Burgers"
-   :category "Desserts"
-   :category "Sides"
-   :category "Drinks"})
+  {"Specialties"
+   "Salads"
+   "Burgers"
+   "Desserts"
+   "Sides"
+   "Drinks"})
 
 ;;update quantity that takes id quantity order
 ;;find item in order with id
