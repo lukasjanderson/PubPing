@@ -32,10 +32,7 @@
 ;; App State
 ;; ==========================================================================
 
-
-(defonce order-state (atom {:quantity 0 :user "" :total 0 :comment ""}))
-
-(defonce quantity (atom {:quantity 0 :id ""}))
+(defonce order-state (atom {:user {} :order {} :total 0 :comment ""}))
 
 ;; ==========================================================================
 ;; Functions to send / receive messages and list channels
