@@ -112,20 +112,21 @@
  ; (for item menu-items))
 
 (defn main-page []
-  (add-name)
+  (let [current-order (:order @order-state)
+        current-user (:user @order-state)
+        current-total (:total @order-state)]
 
-  (let [menu-items ""
-        current-user(:user @order-state)
-        current-price (:total @order-state)]
    [ui/MuiThemeProvider ;theme-defaults
     [:div
 
-     (menu-design @order-state.order)
+     (add-name)
 
-     [:b [:big "Please Add Comments:"]]
+     (menu-design current-order)
+
+     [:b [:big "Comments: "]]
      (add-comments)
      [:b]
-     [:b [:big "Your Order Comes To: " [current-price]]]
+     [:b [:big "Your Total: " [current-total]]]
 
      ;;not sure what to do with this
      [ui/RaisedButton {:label "Order" :primary true :on-click (send-order)}]]]))
