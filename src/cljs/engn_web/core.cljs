@@ -71,9 +71,10 @@
 ;; View components
 ;; ==========================================================================
 
-(defn change-order [id value @order-state]
+(defn change-order [id value order]
+  (if (not (get id order).attribute "")
    ;assoc value with item
-   (assoc id value))
+   (assoc id value)))
 
 
 (defn menu-design [menu categories]

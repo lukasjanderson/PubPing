@@ -6,16 +6,16 @@
 ;; ==========================================================================
 
 (defn order-initial-state []
-  {[{:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price ""}]
-   [{:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price ""}]
-   [{:id "Southern Chicken Wrap" :quantity 0 :class "entree" :category "Specialties" :price ""}]
-   [{:id "Jack & Cheddar Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price ""}]
-   [{:id "Jack & Cheddar Quesadilla w/ Grilled Chicken" :quantity 0 :class "entree" :category "Specialties" :price ""}]
-   [{:id "Jack & Cheddar Quesadilla w/ Fried Chicken" :quantity 0 :class "entree" :category "Specialties" :price ""}]
-   [{:id "Veggie Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price ""}]
-   [{:id "Classic French Dip" :quantity 0 :class "entree" :category "Specialties" :price ""}]
-   [{:id "Veggie Wrap" :quantity 0 :class "entree" :category "Specialties" :price ""}]
-   [{:id "Jumbo Wings" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute (sauces)}]
+  {[{:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute "" :hint ""}]
+   [{:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute "" :hint ""}]
+   [{:id "Southern Chicken Wrap" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute "" :hint ""}]
+   [{:id "Jack & Cheddar Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute "" :hint ""}]
+   [{:id "Jack & Cheddar Quesadilla w/ Grilled Chicken" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute "" :hint ""}]
+   [{:id "Jack & Cheddar Quesadilla w/ Fried Chicken" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute "" :hint ""}]
+   [{:id "Veggie Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute "" :hint ""}]
+   [{:id "Classic French Dip" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute "" :hint ""}]
+   [{:id "Veggie Wrap" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute "" :hint ""}]
+   [{:id "Jumbo Wings" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute "" :hint "Enter choice: Buffalo, BBQ, Asian, Sriracha Honey, Buff-A-Que, Plain"}]
    [{:id "Spicy Pork Belly Sandwich" :quantity 0 :class "entree" :category "Specialties" :price ""}]
    [{:id "Pub Turkey Club" :quantity 0 :class "entree" :category "Specialties" :price ""}]
    [{:id "Caesar Salad" :quantity 0 :class "entree" :category "Salads" :price ""}]
@@ -85,9 +85,7 @@
 
 (defn update-quantity
   [id quantity order]
-  (let [order (:order (:id id :quantity quantity))
-        ;;no idea about how to do attribute
-        if attribute (let [order (:order (:id id :quantity quantity :attribute attribute))])]
+  (let [order (:order (:id id :quantity quantity))]
     (keys order)))
 
 
