@@ -132,7 +132,7 @@
    [ui/MuiThemeProvider ;theme-defaults
     [:div
 
-     (menu-design)
+     (menu-design (order/order-initial-state) (ordering/categories))
 
      [:b [:big "Please Add Comments:"]]
      (add-comments)
