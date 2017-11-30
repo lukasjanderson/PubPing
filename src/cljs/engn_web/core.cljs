@@ -71,9 +71,6 @@
 ;; View components
 ;; ==========================================================================
 
-(defn change-order [id value order]
-  (assoc order id (ordering/update-quantity item.id item.quantity @order-state)))
-
 
 (defn menu-design [menu categories]
   [:div
@@ -93,15 +90,6 @@
               [ui/TextField :floatingLabelText item.hint
                             :onChange #(swap! item assoc :attribute %2)]))])]])
 
-;;old code below
-;  [:div
-;  [ui/List
-;    (for [category categories]
-;      [ui/Textfield {:floatingLabelTest category}])
-
-;    [ui/ListItem { :label item}
-;               :on-click #(swap! quantity assoc :quantity (+ 1 :quantity))}]
-;     [ui/]))])
 
 (defn add-comments []
   [ui/CardText

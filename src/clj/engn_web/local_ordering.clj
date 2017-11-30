@@ -50,10 +50,6 @@
 ;;find item in order with id
 ;;update item quantity
 
-(defn update-quantity
-  [id quantity order]
-  (let [order (:order (:id id :quantity quantity))]
-    (keys order)))
 
 
 ;;be able to detect attributes
