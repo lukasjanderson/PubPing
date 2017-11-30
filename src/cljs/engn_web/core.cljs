@@ -72,7 +72,7 @@
 ;; ==========================================================================
 
 (defn change-order [id value order]
-  (assoc order id (ordering/update-quantity id value order)))
+  (assoc order id (ordering/update-quantity item.id item.quantity @order-state)))
 
 
 (defn menu-design [menu categories]
@@ -88,10 +88,10 @@
              {:primaryText item.id
               :secondaryText item.price
               :leftAvatar [ui/TextField :defaultValue item.quantity
-                                        :onChange (change-order id value @order-state)]}]
+                                        :onChange #(swap! item assoc :quantity %2)]}]
             (if (not item.hint "")
               [ui/TextField :floatingLabelText item.hint
-                            :onChange #(swap! order-state assoc :attribute %2)]))])]])
+                            :onChange #(swap! item assoc :attribute %2)]))])]])
 
 ;;old code below
 ;  [:div
