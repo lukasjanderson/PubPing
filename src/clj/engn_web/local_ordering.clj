@@ -6,45 +6,45 @@
 ;; ==========================================================================
 
 (defn order-initial-state []
-  {[{:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price 6.00}]
-   [{:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7.00
-                  {:id "Southern Chicken Wrap" :class "entree" :price 6.00}
-                  {:id "Jack & Cheddar Quesadilla" :price 6.00}
-                  {:id "Jack & Cheddar Quesadilla w/ Grilled Chicken" :price 7.00}
-                  {:id "Jack & Cheddar Quesadilla w/ Fried Chicken" :price 7.00}
-                  {:id "Veggie Quesadilla" :class "entree" :price 6.00}
-                  {:id "Classic French Dip" :class "entree" :price 7.00}
-                  {:id "Veggie Wrap" :class "entree" :price 6.00}
-                  {:id "Jumbo Wings" :class "entree" :price 6.00} :attribute (sauces)
-                  {:id "Spicy Pork Belly Sandwich" :class "entree" :price 7.00}
-                  {:id "Pub Turkey Club" :class "entree" :price 6.00}}]
-   "Salads"      [{:id "Caesar Salad" :class "entree" :price 6.00}
-                  {:id "Caesar Salad w/ Tofu" :class "entree" :price 8.00}
-                  {:id "Caesar Salad w/ Grilled Chicken" :class "entree" :price 8.00}
-                  {:id "Cobb Salad" :class "entree" :price 6.00 :attribute (dressings)}
-                  {:id "Cobb Salad w/ Tofu" :class "entree" :price 8.00 :attribute (dressings)}
-                  {:id "Cobb Salad w/ Grilled Chicken" :class "entree" :price 8.00 :attribute (dressings)}
-                  {:id "Cobb Salad w/ Fried Chicken" :class "entree" :price 8.00 :attribute (dressings)}]
-   "Burgers"     [{:id "Pub Burger" :class "entree" :price 6.00 :attribute (cheeses)}
-                  {:id "Pub Burger w/ Bacon" :class "entree" :price 7.00 :attribute (cheeses)}
-                  {:id "Vegan Burger" :class "entree" :price 6.00}]
-   "Desserts"    [{:id "Chocolate Chip Cookie" :class "side" :price 1.29}
-                  {:id "Ghirardelli Brownie" :class "side" :price 1.29}
-                  {:id "Ghirardelli Brownie w/ Vanilla Ice Cream" :class "entree" :price 4.50}
-                  {:id "Milkshake" :class "entree" :price 4.00 :attribute (flavors)}
-                  {:id "Root Beer Float" :class "entree" :price 4.00}]
-   "Sides"       [{:id "Pub Fries" :class "side" :price 1.50}
-                  {:id "Onion Rings" :class "side" :price 2.00}
-                  {:id "Tortilla Chips" :class "side" :price 1.50}
-                  {:id "Kettle Chips" :class "side" :price 1.50}
-                  {:id "Cajun Sweet Potato Fries" :class "side" :price 1.50}
-                  {:id "Cut Fruit" :class "side" :price 1.50}
-                  {:id "Side Salad" :class "side" :price 1.50 :attribute (dressings)}
-                  {:id "Chips & Salsa" :class "side" :price 2.50}
-                  {:id "Chips & Guacamole" :class "side" :price 3.00}
-                  {:id "Chips & Queso" :class "side" :price 3.00}]
-   "Drinks"      [{:id "Fountain Drink" :class "side" :price 1.79}
-                  {:id "Bottled Water" :class "side" :price 1.69}]})
+  {[{:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Southern Chicken Wrap" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Jack & Cheddar Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Jack & Cheddar Quesadilla w/ Grilled Chicken" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Jack & Cheddar Quesadilla w/ Fried Chicken" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Veggie Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Classic French Dip" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Veggie Wrap" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Jumbo Wings" :quantity 0 :class "entree" :category "Specialties" :price "" :attribute (sauces)}]
+   [{:id "Spicy Pork Belly Sandwich" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Pub Turkey Club" :quantity 0 :class "entree" :category "Specialties" :price ""}]
+   [{:id "Caesar Salad" :quantity 0 :class "entree" :category "Salads" :price ""}]
+   [{:id "Caesar Salad w/ Tofu" :quantity 0 :class "entree" :category "Salads" :price ""}]
+   [{:id "Caesar Salad w/ Grilled Chicken" :quantity 0 :class "entree" :category "Salads" :price ""}]
+   [{:id "Cobb Salad" :quantity 0 :class "entree" :category "Salads" :price "" :attribute (dressings)}]
+   [{:id "Cobb Salad w/ Tofu" :quantity 0 :class "entree" :category "Salads" :price "" :attribute (dressings)}]
+   [{:id "Cobb Salad w/ Grilled Chicken" :quantity 0 :class "entree" :category "Salads" :price "" :attribute (dressings)}]
+   [{:id "Cobb Salad w/ Fried Chicken" :quantity 0 :class "entree" :category "Salads" :price "" :attribute (dressings)}]
+   [{:id "Pub Burger" :quantity 0 :class "entree" :category "Burgers" :price "" :attribute (cheeses)}]
+   [{:id "Pub Burger w/ Bacon" :quantity 0 :class "entree" :category "Burgers" :price "" :attribute (cheeses)}]
+   [{:id "Vegan Burger" :quantity 0 :class "entree" :category "Burgers" :price ""}]
+   [{:id "Chocolate Chip Cookie" :quantity 0 :class "side" :category "Desserts" :price ""}]
+   [{:id "Ghirardelli Brownie" :quantity 0 :class "side" :category "Desserts" :price ""}]
+   [{:id "Ghirardelli Brownie w/ Vanilla Ice Cream" :quantity 0 :class "side" :category "Desserts" :price ""}]
+   [{:id "Milkshake" :quantity 0 :class "side" :category "Desserts" :price "" :attribute (flavors)}]
+   [{:id "Root Beer Float" :quantity 0 :class "side" :category "Desserts" :price ""}]
+   [{:id "Pub Fries" :quantity 0 :class "side" :category "Sides" :price ""}]
+   [{:id "Onion Rings" :quantity 0 :class "side" :category "Sides" :price ""}]
+   [{:id "Tortilla Chips" :quantity 0 :class "side" :category "Sides" :price ""}]
+   [{:id "Kettle Chips" :quantity 0 :class "side" :category "Sides" :price ""}]
+   [{:id "Cajun Sweet Potato Fries" :quantity 0 :class "side" :category "Sides" :price ""}]
+   [{:id "Cut Fruit" :quantity 0 :class "side" :category "Sides" :price ""}]
+   [{:id "Side Salad" :quantity 0 :class "side" :category "Sides" :price "" :attribute (dressings)}]
+   [{:id "Chips & Salsa" :quantity 0 :class "side" :category "Sides" :price ""}]
+   [{:id "Chips & Guacamole" :quantity 0 :class "side" :category "Sides" :price ""}]
+   [{:id "Chips & Queso" :quantity 0 :class "side" :category "Sides" :price ""}]
+   [{:id "Fountain Drink" :quantity 0 :class "side" :category "Drinks" :price ""}]
+   [{:id "Bottled Water" :quantity 0 :class "side" :category "Drinks" :price ""}]})
 
 (defn sauces []
   {:sauce "Buffalo"
@@ -56,7 +56,8 @@
    :sauce "Plain"})
 
 (defn dressings []
-  {:dressing ""})
+  {:dressing "Blue cheese"
+   :dressing "Ranch"})
 
 (defn cheeses []
   {:cheese "American"
@@ -70,18 +71,25 @@
    :flavor "Vanilla"
    :flavor "Special"})
 
-;;add item
+(defn categories []
+  {:category "Specialties"
+   :category "Salads"
+   :category "Burgers"
+   :category "Desserts"
+   :category "Sides"
+   :category "Drinks"})
 
-(defn add-item
-  [id class price attribute menu]
-  (let [current-menu (vec (get menu))
-        current-menu-t (if (> (count current-menu) 2) (seq (subvec current-menu 1)) (seq current-menu))
-        if attribute (updated-menu (conj current-menu-t id class price attribute))
-        (updated-menu (conj current-menu-t id class price))]
-    (assoc menu updated-menu)))
+;;update quantity that takes id quantity order
+;;find item in order with id
+;;update item quantity
 
-;;add categories
+(defn update-quantity
+  [id quantity order]
+  (let [order (:order (:id id :quantity quantity))
+        ;;no idea about how to do attribute
+        if attribute (let [order (:order (:id id :quantity quantity :attribute attribute))])]
+    (keys order)))
 
-;;potentially add price method?
 
 ;;be able to detect attributes
+;;can't i just do this in the add-item method?
