@@ -1,8 +1,9 @@
-(ns engn-web.core
+(ns engn-web.core 
     (:require [reagent.core :as reagent :refer [atom]]
               [secretary.core :as secretary :include-macros true]
               [accountant.core :as accountant]
               [cljs-time.core :as time]
+              [engn-web.local-ordering :as ordering]
               [cljs-time.format :as time-format]
               [cljs-time.coerce :as time-coerce]
               [reagent-material-ui.core :as ui]
@@ -37,7 +38,7 @@
 ;; View components
 ;; ==========================================================================
 
-(defn menu-design [menu categories]
+(defn menu-design [menu]
   [:div
    ;;not sure how to get the specific tags for each item
    [ui/List
@@ -82,7 +83,7 @@
    [ui/MuiThemeProvider ;theme-defaults
     [:div
 
-     (menu-design (ordering/order-initial-state) (ordering/categories))
+     (menu-design (ordering/order-initial-state))
 
      [:b [:big "Please Add Comments:"]]
      (add-comments)
