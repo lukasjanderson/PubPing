@@ -3,7 +3,6 @@
               [secretary.core :as secretary :include-macros true]
               [accountant.core :as accountant]
               [cljs-time.core :as time]
-              [engn-web.local-ordering :as ordering]
               [cljs-time.format :as time-format]
               [cljs-time.coerce :as time-coerce]
               [reagent-material-ui.core :as ui]
@@ -125,7 +124,7 @@
    [ui/MuiThemeProvider ;theme-defaults
     [:div
 
-     (menu-design (ordering/order-initial-state))
+     (menu-design @order-state.order)
 
      [:b [:big "Please Add Comments:"]]
      (add-comments)
