@@ -50,9 +50,8 @@
 
 (defn main-page
    "Generates the main HTML page for the single-page application"
-   [user]
+   []
    (html5
-     (head user)
      [:body
        mount-target
        (include-js "/js/app.js")]))
@@ -63,7 +62,7 @@
 ;; ==========================================================================
 
 (defroutes routes
-  (GET "/" request (main-page user))
+  (GET "/" request (main-page))
   (not-found "Not Found"))
 
 (def app (->  (wrap-middleware #'routes)
