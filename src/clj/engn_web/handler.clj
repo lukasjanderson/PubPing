@@ -5,7 +5,7 @@
             [engn-web.middleware :refer [wrap-middleware]]
             [ring.middleware.json :as json]
             [config.core :refer [env]]
-            [engn-web.ordering :as ordering]
+            [engn-web.local-ordering :as ordering]
             [ring.middleware.cookies :refer [wrap-cookies]]
             [ring.middleware.params :refer [wrap-params]]))
 
@@ -45,8 +45,8 @@
            :content "width=device-width, initial-scale=1"}]
    (include-css "https://fonts.googleapis.com/icon?family=Material+Icons")
    (include-css "https://fonts.googleapis.com/css?family=Roboto:300,400,500")
-   (include-css (if (env :dev) "/css/site.css" "/css/site.min.css"))
-   (include-user user)])
+   (include-css (if (env :dev) "/css/site.css" "/css/site.min.css"))])
+   ;(include-user user)])
 
 (defn main-page
    "Generates the main HTML page for the single-page application"
