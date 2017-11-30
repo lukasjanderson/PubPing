@@ -90,7 +90,9 @@
              {:primaryText item.id
               :secondaryText item.price
               :leftAvatar [ui/TextField :defaultValue item.quantity
-                                        :onChange (change-order id value @order-state)]}])])]])
+                                        :onChange (change-order id value @order-state)]}]
+            (if (not item.hint "")
+              [ui/TextField :floatingLabelText item.hint]))])]])
 
 ;;old code below
 ;  [:div
@@ -116,11 +118,8 @@
    [ui/RaisedButton {:label "Enter"
                      :on-click #(swap! order-state user)}]])
 
-
 (defn send-order []
   (for item menu-items))
-
-
 
 (defn main-page []
   (add-name)
