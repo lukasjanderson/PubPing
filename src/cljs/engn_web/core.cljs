@@ -44,7 +44,7 @@
     (let [cat ""]
          (for [item menu]
            (do
-             (if (not cat item.category)
+             (if (not (cat item.category))
                {(assoc cat item.category)
                 [ui/Text {:primary cat}]})
              [ui/ListItem
@@ -70,8 +70,8 @@
    [ui/RaisedButton {:label "Enter"
                      :on-click #(swap! order-state comment)}]])
 
-(defn send-order []
-  (for item menu-items))
+;(defn send-order []
+ ; (for item menu-items))
 
 (defn main-page []
   (add-name)
