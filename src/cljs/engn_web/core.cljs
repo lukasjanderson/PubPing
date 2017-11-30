@@ -41,8 +41,9 @@
   [:div
    ;;not sure how to get the specific tags for each item
    [ui/List
-    (let [cat ""
-           (for [item menu]
+    (let [cat ""]
+         (for [item menu]
+           (do
              (if (not cat item.category)
                {(assoc cat item.category)
                 [ui/Text {:primary cat}]})
@@ -53,8 +54,7 @@
                                          :onChange #(swap! item assoc :quantity %2)]}]
              (if (not item.hint "")
                [ui/TextField :floatingLabelText item.hint
-                             :onChange #(swap! item assoc :attribute %2)]))])]])
-
+                             :onChange #(swap! item assoc :attribute %2)]))))]])
 
 (defn add-name []
   [ui/CardText
