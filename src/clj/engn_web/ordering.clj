@@ -45,12 +45,3 @@
    [{:id "Chips & Queso" :quantity 0 :class "side" :category "Sides" :price 3 :attribute "" :hint ""}]
    [{:id "Fountain Drink" :quantity 0 :class "side" :category "Drinks" :price 1.79 :attribute "" :hint ""}]
    [{:id "Bottled Water" :quantity 0 :class "side" :category "Drinks" :price 1.69 :attribute "" :hint ""}]})
-
-;;update quantity that takes id quantity order
-;;find item in order with id
-;;update item quantity
-
-
-
-;;be able to detect attributes
-;;can't i just do this in the add-item method?

@@ -94,8 +94,6 @@
      ;;not sure what to do with this
      [ui/RaisedButton {:label "Order" :primary true :on-click (send-order)}]]]))
 
-
-
 ;; -------------------------
 ;; Routes
 
