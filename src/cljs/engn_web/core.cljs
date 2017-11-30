@@ -80,22 +80,18 @@
 (defn menu-design [menu categories]
   [:div
    ;;not sure how to get the specific tags for each item
+   [ui/List
+    (let [cat ""
+          (for [item menu]
+            (if (not cat item.category)
+              {(assoc cat item.category)
+               [ui/Text {:primary cat}]})
+            [ui/ListItem
+             {:primaryText item.id
+              :secondaryText item.price
+              :leftAvatar [ui/TextField :defaultValue item.quantity
+                                        :onChange (change-order id value @order-state)]}])])]])
 
-   (let [cat ""
-         (for [item menu]
-           (if (not cat item.category)
-             {(assoc cat item.category)
-              [ui/Text {:primary cat}]
-              [ui/ListItem
-               {:primaryText item.id
-                :secondaryText item.price
-                :leftAvatar [ui/TextField :defaultValue item.quantity
-                                          :onChange (change-order id value @order-state)]}]}
-             [ui/ListItem
-              {:primaryText item.id
-               :secondaryText item.price
-               :leftAvatar [ui/TextField :defaultValue item.quantity
-                                         :onChange (change-order id value @order-state)]}]))])])
 ;;old code below
 ;  [:div
 ;  [ui/List
