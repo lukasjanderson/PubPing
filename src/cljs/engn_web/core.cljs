@@ -72,9 +72,7 @@
 ;; ==========================================================================
 
 (defn change-order [id value order]
-  (if (not (get id order).attribute "")
-   ;assoc value with item
-   (assoc id value)))
+  (assoc order id (ordering/update-quantity id value order)))
 
 
 (defn menu-design [menu categories]
@@ -92,7 +90,8 @@
               :leftAvatar [ui/TextField :defaultValue item.quantity
                                         :onChange (change-order id value @order-state)]}]
             (if (not item.hint "")
-              [ui/TextField :floatingLabelText item.hint]))])]])
+              [ui/TextField :floatingLabelText item.hint
+                            :onChange #(swap! order-state assoc :attribute %2)]))])]])
 
 ;;old code below
 ;  [:div
