@@ -86,7 +86,7 @@
     (let [cat ""]
          (for [item menu]
            (do
-             (if (not (cat item.category))
+             (if (not (= cat item.category))
                {(assoc cat item.id item.category)
                 [ui/CardText {:primary cat}]})
              [ui/ListItem
@@ -94,23 +94,19 @@
                :secondaryText item.price
                :leftAvatar [ui/TextField :defaultValue item.quantity
                                          :onChange #(swap! item assoc :quantity %2)]}]
-             (if (not item.hint "")
+             (if (not (= item.hint ""))
                [ui/TextField :floatingLabelText item.hint
                              :onChange #(swap! item assoc :attribute %2)]))))]])
 
 (defn add-name []
   [ui/CardText
    [ui/TextField {:floatingLabelText "Please Enter Your Commodore ID Number"
-                  :onChange #(swap! order-state assoc :user %2)}]
-   [ui/RaisedButton {:label "Enter"
-                     :on-click #(swap! order-state user)}]])
+                  :onChange #(swap! order-state assoc :user %2)}]])
 
 (defn add-comments []
   [ui/CardText
    [ui/TextField {:floatingLabelText "Comments"
-                  :onChange #(swap! order-state assoc :comment %2)}]
-   [ui/RaisedButton {:label "Enter"
-                     :on-click #(swap! order-state comment)}]])
+                  :onChange #(swap! order-state assoc :comment %2)}]])
 
 ;(defn send-order []
  ; (for item menu-items))
