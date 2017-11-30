@@ -14,7 +14,7 @@
 ;;
 ;; This is an example of a Clojure macro,
 ;; which is one of the really powerful
-;; feaures of Clojure. 
+;; feaures of Clojure.
 ;;
 ;; ========================================
 
@@ -40,9 +40,9 @@
 ;; won't be able to rerun the test automatically
 ;; because it is too slow
 ;; ========================================
-
-(deftest ^:integration channels-list-test
-  (testing "Test that we can fetch the list of channels from the HTTP endpoint"
-    (with-server
-        (let [channels (sync GET "http://localhost:3000/channel")]
-          (is (= 3 (count channels)))))))
+;
+; (deftest ^:integration channels-list-test
+;   (testing "Test that we can fetch the list of channels from the HTTP endpoint"
+;     (with-server
+;         (let [channels (sync GET "http://localhost:3000/channel")]
+;           (is (= 3 (count channels)))))))
