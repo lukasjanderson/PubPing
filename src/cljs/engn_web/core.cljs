@@ -35,39 +35,6 @@
 (defonce order-state (atom {:user {} :order {} :total 0 :comment ""}))
 
 ;; ==========================================================================
-;; Functions to send / receive messages and list channels
-;; ==========================================================================
-
-
-; dropdown for just attributes; list menu items
-; quantity dropdown if attributes
-;
-
-;order atom - w/ initial quantity to 0
-
-
-;(defn add-msg! []
- ; (messages-add! @current-channel @msg-entry)
-  ;(reset! msg-entry ""))
-
-;(defn add-item!) []
- ; (items-add! @order-state)
-  ;(reset!))
-
-;(defn add-channel! [channel]
- ; (if (not-any? #(= channel %) @channels)
-  ;  (do
-   ;   (POST (str "/channel/" channel)
-    ;      {:params {:msg "Channel start"}
-     ;      :response-format :json
-      ;     :format :json
-       ;    :keywords? true
-        ;   :error-handler error-handler
-         ;  :handler (fn [r] (log "msg posted to server"))
-      ;(swap! channels conj channel))
-
-
-;; ==========================================================================
 ;; View components
 ;; ==========================================================================
 
@@ -91,13 +58,6 @@
                             :onChange #(swap! item assoc :attribute %2)]))])]])
 
 
-(defn add-comments []
-  [ui/CardText
-   [ui/TextField {:floatingLabelText "Comments"
-                  :onChange #(swap! order-state assoc :comment %2)}]
-   [ui/RaisedButton {:label "Enter"
-                     :on-click #(swap! order-state comment)}]])
-
 (defn add-name []
   [ui/CardText
    [ui/TextField {:floatingLabelText "Please Enter Your Commodore ID Number"
@@ -105,13 +65,20 @@
    [ui/RaisedButton {:label "Enter"
                      :on-click #(swap! order-state user)}]])
 
+(defn add-comments []
+  [ui/CardText
+   [ui/TextField {:floatingLabelText "Comments"
+                  :onChange #(swap! order-state assoc :comment %2)}]
+   [ui/RaisedButton {:label "Enter"
+                     :on-click #(swap! order-state comment)}]])
+
 (defn send-order []
   (for item menu-items))
 
 (defn main-page []
   (add-name)
 
-  (let [menu-items (add-item id)
+  (let [menu-items ""
         current-user(:user @order-state)
         current-price (:total @order-state)]
    [ui/MuiThemeProvider ;theme-defaults
