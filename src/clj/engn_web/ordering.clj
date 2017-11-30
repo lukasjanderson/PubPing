@@ -1,10 +1,6 @@
 (ns engn-web.local-ordering
    (:require [clojure.string :as string]))
 
-;; ==========================================================================
-;; Functions to add / list messages and channels
-;; ==========================================================================
-
 (defn order-initial-state []
   [{:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
    {:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7 :attribute "" :hint ""}
