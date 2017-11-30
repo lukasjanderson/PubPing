@@ -9,7 +9,6 @@
             [ring.middleware.cookies :refer [wrap-cookies]]
             [ring.middleware.params :refer [wrap-params]]))
 
-
 ;; ==========================================================================
 ;; Utility functions for serving up a JSON REST API
 ;; ==========================================================================
@@ -58,7 +57,6 @@
        mount-target
        (include-js "/js/app.js")]))
 
-
 ;; ==========================================================================
 ;; Functions to setup the list of URI routes for the application
 ;; and setup the appropriate middleware wrappers
@@ -67,7 +65,6 @@
 (defroutes routes
   (GET "/" request (main-page user))
   (not-found "Not Found"))
-
 
 (def app (->  (wrap-middleware #'routes)
               (json/wrap-json-response)
