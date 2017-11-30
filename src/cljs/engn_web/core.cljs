@@ -45,8 +45,8 @@
          (for [item menu]
            (do
              (if (not (cat item.category))
-               {(assoc cat item.category)
-                [ui/Text {:primary cat}]})
+               {(assoc cat id item.category)
+                [ui/CardText {:primary cat}]})
              [ui/ListItem
               {:primaryText item.id
                :secondaryText item.price
