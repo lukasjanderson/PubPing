@@ -85,19 +85,19 @@
    (for [categories menu]
     (if (= categories (item.category))
         [ui/ListItem
-         {:primaryText item
+         {:primaryText item.id
           :secondaryText item.price
           :leftAvatar [ui/TextField :defaultValue item.quantity
-                                    :onChange (change-order id value @order-state)]}]))]
+                                    :onChange (change-order id value @order-state)]}]))])
 ;;old code below
-  [:div
-   [ui/List
-    (for [category categories]
-      [ui/Textfield {:floatingLabelTest category}])
+;  [:div
+;  [ui/List
+;    (for [category categories]
+;      [ui/Textfield {:floatingLabelTest category}])
 
-    [ui/ListItem { :label item}
-               :on-click #(swap! quantity assoc :quantity (+ 1 :quantity))
-     [ui/]]]])
+;    [ui/ListItem { :label item}
+;               :on-click #(swap! quantity assoc :quantity (+ 1 :quantity))}]
+;     [ui/]))])
 
 (defn add-comments []
   [ui/CardText
