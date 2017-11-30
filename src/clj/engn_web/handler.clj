@@ -5,7 +5,7 @@
             [engn-web.middleware :refer [wrap-middleware]]
             [ring.middleware.json :as json]
             [config.core :refer [env]]
-            [engn-web.local-messaging :as messaging]
+            [engn-web.ordering :as ordering]
             [ring.middleware.cookies :refer [wrap-cookies]]
             [ring.middleware.params :refer [wrap-params]]))
 

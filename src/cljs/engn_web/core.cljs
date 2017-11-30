@@ -41,19 +41,19 @@
   [:div
    ;;not sure how to get the specific tags for each item
    [ui/List
-    (let [cat ""
-          (for [item menu]
-            (if (not cat item.category)
-              {(assoc cat item.category)
-               [ui/Text {:primary cat}]})
-            [ui/ListItem
-             {:primaryText item.id
-              :secondaryText item.price
-              :leftAvatar [ui/TextField :defaultValue item.quantity
-                                        :onChange #(swap! item assoc :quantity %2)]}]
-            (if (not item.hint "")
-              [ui/TextField :floatingLabelText item.hint
-                            :onChange #(swap! item assoc :attribute %2)]))])]])
+    (let {[cat ""
+           (for [item menu]
+             (if (not cat item.category)
+               {(assoc cat item.category)
+                [ui/Text {:primary cat}]})
+             [ui/ListItem
+              {:primaryText item.id
+               :secondaryText item.price
+               :leftAvatar [ui/TextField :defaultValue item.quantity
+                                         :onChange #(swap! item assoc :quantity %2)]}]
+             (if (not item.hint "")
+               [ui/TextField :floatingLabelText item.hint
+                             :onChange #(swap! item assoc :attribute %2)]))]})]])
 
 
 (defn add-name []
