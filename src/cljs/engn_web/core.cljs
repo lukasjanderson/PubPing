@@ -12,6 +12,8 @@
 ;; Utility functions
 ;; ==========================================================================
 
+(enable-console-print!)
+
 (defn log
   "Log a message to the Javascript console"
   [& msg]
@@ -115,10 +117,10 @@
   (let [current-order (:order @order-state)
         current-user (:user @order-state)
         current-total (:total @order-state)]
-
    [ui/MuiThemeProvider ;theme-defaults
     [:div
-
+     {:style {:color "#546E7A"}}
+     [:b [:big [:big [:big "Welcome to PubPing!"]]]]
      (add-name)
 
      (menu-design current-order)
@@ -126,10 +128,10 @@
      [:b [:big "Comments: "]]
      (add-comments)
      [:b]
-     [:b [:big "Your Total: " [current-total]]]
+     [:b [:big "Your Total: " [current-total]]]]]))
 
      ;;not sure what to do with this
-     [ui/RaisedButton {:label "Order" :primary true :on-click (send-order)}]]]))
+     ;[ui/RaisedButton {:label "Order" :primary true :on-click (send-order)}]]]))
 
 ;; -------------------------
 ;; Routes
