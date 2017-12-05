@@ -87,17 +87,18 @@
     (let [cat ""]
          (for [item menu]
            (do
-             (if (not (= cat item.category))
-               {(assoc cat item.id item.category)
-                [ui/CardText {:primary cat}]})
+             (if (not (= cat (:category item)))
+               (do
+                 (assoc order-state (:category item) cat)
+                 [ui/CardText {:primary cat}]))
              [ui/ListItem
-              {:primaryText item.id
-               :secondaryText item.price
-               :leftAvatar [ui/TextField :defaultValue item.quantity
-                                         :onChange #(swap! order-state assoc item.quantity %2)]}]
-             (if (not (= item.hint ""))
-               [ui/TextField :floatingLabelText item.hint
-                             :onChange #(swap! order-state assoc item.attribute %2)]))))]])
+              {:primaryText (:id item)
+               :secondaryText (:price item)
+               :leftAvatar [ui/TextField :defaultValue (:quantity item)
+                                         :onChange #(swap! order-state assoc (:quantity item) %2)]}]
+             (if (not (= (:hint item) ""))
+               [ui/TextField :floatingLabelText (:hint item)
+                             :onChange #(swap! order-state assoc (:attribute item) %2)]))))]])
 
 (defn add-name []
   [ui/CardText
