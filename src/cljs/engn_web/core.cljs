@@ -83,7 +83,6 @@
 
 (defn menu-design [menu]
   [:div
-   ;;not sure how to get the specific tags for each item
    [ui/List
     (let [cat ""]
          (for [item menu]
@@ -102,7 +101,7 @@
 
 (defn add-name []
   [ui/CardText
-   [ui/TextField {:floatingLabelText "Please Enter Your Commodore ID Number"
+   [ui/TextField {:floatingLabelText "Please Enter Your Commodore Card Number"
                   :onChange #(swap! order-state assoc :user %2)}]])
 
 (defn add-comments []
@@ -117,10 +116,11 @@
   (let [current-order (:order @order-state)
         current-user (:user @order-state)
         current-total (:total @order-state)]
-   [ui/MuiThemeProvider ;theme-defaults
+
+   [ui/MuiThemeProvider
     [:div
      {:style {:color "#546E7A"}}
-     [:b [:big [:big [:big "Welcome to PubPing!"]]]]
+     [:b [:big "Welcome to PubPing!"]]
      (add-name)
 
      (menu-design current-order)
@@ -128,10 +128,9 @@
      [:b [:big "Comments: "]]
      (add-comments)
      [:b]
-     [:b [:big "Your Total: " [current-total]]]]]))
+     [:b [:big "Your Total: " [current-total]]]
 
-     ;;not sure what to do with this
-     ;[ui/RaisedButton {:label "Order" :primary true :on-click (send-order)}]]]))
+     [ui/RaisedButton {:label "Order" :primary true :on-click (send-order)}]]]))
 
 ;; -------------------------
 ;; Routes
