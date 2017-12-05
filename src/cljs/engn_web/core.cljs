@@ -93,10 +93,10 @@
               {:primaryText item.id
                :secondaryText item.price
                :leftAvatar [ui/TextField :defaultValue item.quantity
-                                         :onChange #(swap! item assoc :quantity %2)]}]
+                                         :onChange #(swap! order-state assoc item.quantity %2)]}]
              (if (not (= item.hint ""))
                [ui/TextField :floatingLabelText item.hint
-                             :onChange #(swap! item assoc :attribute %2)]))))]])
+                             :onChange #(swap! order-state assoc item.attribute %2)]))))]])
 
 (defn add-name []
   [ui/CardText
