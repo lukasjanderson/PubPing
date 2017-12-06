@@ -79,12 +79,12 @@
 
 ;; List of categories
 (defn categories []
-  {"Specialties"
+  ["Specialties"
    "Salads"
    "Burgers"
    "Desserts"
    "Sides"
-   "Drinks"})
+   "Drinks"])
 
 
 ;; ==========================================================================
@@ -92,21 +92,23 @@
 ;; ==========================================================================
 
 (defn menu-design [menu categories]
+  (println categories)
   [:div
    [ui/List
     (for [cat categories]
-      [ui/CardText {cat}]
-      (for [item menu]
-        (if (= cat (:category item))
-          (do
-            [ui/ListItem
-             {:primaryText (:id item)
-              :secondaryText (:price item)
-              :leftAvatar [ui/TextField :defaultValue (:quantity item)
-                                         :onChange #(swap! order-state assoc (:quantity item) %2)]}]
-            (if (not (= (:hint item) ""))
-               [ui/TextField :floatingLabelText (:hint item)
-                             :onChange #(swap! order-state assoc (:attribute item) %2)])))))]])
+      (do
+        [ui/ListItem {:primaryText cat}]
+        (for [item menu]
+          (if (= cat (:category item))
+            (do
+              [ui/ListItem
+               {:primaryText (:id item)
+                :secondaryText (:price item)}]
+                ; :leftAvatar [ui/TextField {:defaultValue (:quantity item)
+                ;                            :onChange #(swap! order-state assoc (:quantity item) %2)}]}]
+              (if (not (= (:hint item) ""))
+                [ui/TextField {:floatingLabelText (:hint item)
+                               :onChange #(swap! order-state assoc (:attribute item) %2)}]))))))]])
 
 (defn add-name []
   [ui/CardText
@@ -136,10 +138,10 @@
 
      [:b [:big "Comments: "]]
      (add-comments)
-     [:b]
-     [:b [:big "Your Total: " [current-total]]]
+     ;[:b]
+     [:b [:big "Your Total: " current-total]]
 
-     [ui/RaisedButton {:label "Order" :primary true :on-click (send-order)}]]]))
+     [ui/RaisedButton {:label "Order" :primary true :on-click send-order}]]]))
 
 ;; -------------------------
 ;; Routes
