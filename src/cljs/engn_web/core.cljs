@@ -102,23 +102,25 @@
           (if (= cat (:category item))
             (do
               [ui/ListItem
-               {:primaryText (:id item)
+               {:label "item"
+                :primaryText (:id item)
                 :secondaryText (:price item)}]
                 ; :leftAvatar [ui/TextField {:defaultValue (:quantity item)
                 ;                            :onChange #(swap! order-state assoc (:quantity item) %2)}]}]
               (if (not (= (:hint item) ""))
-                [ui/TextField {:floatingLabelText (:hint item)
+                [ui/TextField {:label "hint"
+                               :floatingLabelText (:hint item)
                                :onChange #(swap! order-state assoc (:attribute item) %2)}]))))))]])
 
 (defn add-name []
-  [ui/CardText
-   [ui/TextField {:floatingLabelText "Please Enter Your Commodore Card Number"
-                  :onChange #(swap! order-state assoc :user %2)}]])
+  [:div
+    [ui/TextField {:floatingLabelText "Please Enter Your Commodore Card Number"
+                   :onChange #(swap! order-state assoc :user %2)}]])
 
 (defn add-comments []
-  [ui/CardText
-   [ui/TextField {:floatingLabelText "Comments"
-                  :onChange #(swap! order-state assoc :comment %2)}]])
+  [:div
+    [ui/TextField {:floatingLabelText "Comments"
+                   :onChange #(swap! order-state assoc :comment %2)}]])
 
 ;(defn send-order []
  ; (for item menu-items))
@@ -130,18 +132,26 @@
 
    [ui/MuiThemeProvider
     [:div
-     {:style {:color "#546E7A"}}
-     [:b [:big "Welcome to PubPing!"]]
+     [:div
+      {:style {:color "#546E7A"}}
+      [:b [:big "Welcome to PubPing!"]]]
+
      (add-name)
 
      (menu-design current-order (categories))
 
-     [:b [:big "Comments: "]]
-     (add-comments)
-     ;[:b]
-     [:b [:big "Your Total: " current-total]]
+     [:div
+      {:style {:color "#546E7A"}}
+      [:b [:big "Comments: "]]]
 
-     [ui/RaisedButton {:label "Order" :primary true :on-click send-order}]]]))
+     (add-comments)
+
+     [:div
+      {:style {:color "#546E7A"}}
+      [:b [:big "Your Total: " current-total]]]
+
+     [:div
+      [ui/RaisedButton {:label "Order" :primary true :on-click send-order}]]]]))
 
 ;; -------------------------
 ;; Routes
