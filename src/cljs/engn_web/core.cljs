@@ -89,7 +89,8 @@
            (do
              (if (not (= cat (:category item)))
                (do
-                 (assoc order-state (:category item) cat)
+                 ; fix
+                 ; ( cat (:category item))
                  [ui/CardText {:primary cat}]))
              [ui/ListItem
               {:primaryText (:id item)
