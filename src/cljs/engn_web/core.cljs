@@ -78,7 +78,7 @@
                             :comment ""}))
 
 ;; List of categories
-(defn categories
+(defn categories []
   {"Specialties"
    "Salads"
    "Burgers"
