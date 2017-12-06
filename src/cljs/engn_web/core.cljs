@@ -77,29 +77,36 @@
                             :total 0
                             :comment ""}))
 
+;; List of categories
+(defn categories
+  {"Specialties"
+   "Salads"
+   "Burgers"
+   "Desserts"
+   "Sides"
+   "Drinks"})
+
+
 ;; ==========================================================================
 ;; View components
 ;; ==========================================================================
 
-(defn menu-design [menu]
+(defn menu-design [menu categories]
   [:div
    [ui/List
-    (let [cat ""]
-         (for [item menu]
-           (do
-             (if (not (= cat (:category item)))
-               (do
-                 ; fix
-                 ; ( cat (:category item))
-                 [ui/CardText {:primary cat}]))
-             [ui/ListItem
-              {:primaryText (:id item)
-               :secondaryText (:price item)
-               :leftAvatar [ui/TextField :defaultValue (:quantity item)
+    (for [cat categories]
+      [ui/CardText {cat}]
+      (for [item menu]
+        (if (= cat (:category item))
+          (do
+            [ui/ListItem
+             {:primaryText (:id item)
+              :secondaryText (:price item)
+              :leftAvatar [ui/TextField :defaultValue (:quantity item)
                                          :onChange #(swap! order-state assoc (:quantity item) %2)]}]
-             (if (not (= (:hint item) ""))
+            (if (not (= (:hint item) ""))
                [ui/TextField :floatingLabelText (:hint item)
-                             :onChange #(swap! order-state assoc (:attribute item) %2)]))))]])
+                             :onChange #(swap! order-state assoc (:attribute item) %2)])))))]])
 
 (defn add-name []
   [ui/CardText
@@ -125,7 +132,7 @@
      [:b [:big "Welcome to PubPing!"]]
      (add-name)
 
-     (menu-design current-order)
+     (menu-design current-order (categories))
 
      [:b [:big "Comments: "]]
      (add-comments)
