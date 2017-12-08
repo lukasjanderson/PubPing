@@ -101,12 +101,12 @@
            (do
              [ui/Menu
               [ui/MenuItem {:primaryText (:id item)
-                            :secondaryText (:quantity item)}]
-              [ui/FlatButton {:label "+"
-                              :onClick #(swap! order-state assoc (:quantity item) (+ 1 (:quantity item)))}]
+                            :secondaryText (:quantity item)}
+               [ui/FlatButton {:label "+"
+                               :onClick #(swap! order-state assoc (:quantity item) (+ 1 (:quantity item)))}]
 
-              [ui/FlatButton {:label "-"
-                              :onClick #(swap! order-state assoc (:quantity item) (- 1 (:quantity item)))}]
+               [ui/FlatButton {:label "-"
+                               :onClick #(swap! order-state assoc (:quantity item) (- 1 (:quantity item)))}]]
 
 
 
@@ -133,11 +133,13 @@
    [ui/Card
     {:style { :background-color "#EEEEEE"}}
     [ui/Checkbox  {:style {:margin "15px"}
-                   :labelPosition "left" :label "Commodore Cash"}]
+                   :labelPosition "left" :label "Meal Plan"}]
     [ui/Checkbox {:style {:margin "15px"}
-                  :labelPosition "left" :label "MealPlan"}]
+                  :labelPosition "left" :label "Flex Meal"}]
     [ui/Checkbox {:style {:margin "15px"}
-                  :labelPosition "left" :label "Flex Meal"}]])
+                  :labelPosition "left" :label "Meal Money"}]
+    [ui/Checkbox {:style {:margin "15px"}
+                  :labelPosition "left" :label "Commodore Cash"}]])
 
 ;(defn send-order []
  ; (for item menu-items))
