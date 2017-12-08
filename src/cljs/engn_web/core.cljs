@@ -101,12 +101,12 @@
            (do
              [ui/Menu
               [ui/MenuItem {:primaryText (:id item)
-                            :secondaryText (:quantity item)}
+                            :secondaryText (:price item)}
                [ui/FlatButton {:label "+"
-                               :onClick #(swap! order-state assoc (:quantity item) (+ 1 (:quantity item)))}]
+                               :onClick #(swap! order-state assoc (:price item) (+ 1 (:price item)))}]
 
                [ui/FlatButton {:label "-"
-                               :onClick #(swap! order-state assoc (:quantity item) (- 1 (:quantity item)))}]]
+                               :onClick #(swap! order-state assoc (:price item) (- 1 (:price item)))}]]
 
 
 
