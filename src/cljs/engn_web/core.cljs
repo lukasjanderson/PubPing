@@ -99,15 +99,22 @@
        (for [item menu]
          (if (= cat (:category item))
            (do
-             [ui/Card
-              [ui/CardText (:id item)]
+             [ui/Menu
+              [ui/MenuItem {:primaryText (:id item)
+                             :secondaryText (:price item)}]
+
               (if (not (= (:hint item) ""))
                 [ui/TextField {:floatingLabelText (:hint item)
+                               :style {:width "100%"
+                                       :margin-left "15px"}
+
                                :onChange #(swap! order-state assoc (:attribute item) %2)}])])))))])
 
 (defn add-name []
   [:div
     [ui/TextField {:floatingLabelText "Please Enter Your Commodore Card Number"
+                   :style {:width "100%"
+                           :margin-left "15px"}
                    :onChange #(swap! order-state assoc :user %2)}]])
 
 (defn add-comments []
