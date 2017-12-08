@@ -86,7 +86,6 @@
    "Sides"
    "Drinks"])
 
-
 ;; ==========================================================================
 ;; View components
 ;; ==========================================================================
@@ -145,7 +144,9 @@
       [:b [:big "Your Total: " current-total]]]
 
      [:div
-      [ui/RaisedButton {:label "Order" :primary true :on-click send-order}]]]]))
+      [ui/RaisedButton {:label "Order"
+                        :primary true
+                        :on-click send-order}]]]]))
 
 ;; -------------------------
 ;; Routes
