@@ -92,25 +92,19 @@
 ;; ==========================================================================
 
 (defn menu-design [menu categories]
-  (println categories)
   [:div
-   [ui/List
-    (for [cat categories]
-      (do
-        [ui/ListItem {:primaryText cat}]
-        (for [item menu]
-          (if (= cat (:category item))
-            (do
-              [ui/ListItem
-               {:label "item"
-                :primaryText (:id item)
-                :secondaryText (:price item)}]
-                ; :leftAvatar [ui/TextField {:defaultValue (:quantity item)
-                ;                            :onChange #(swap! order-state assoc (:quantity item) %2)}]}]
+   (for [cat categories]
+     (do
+       [ui/Card
+         [ui/CardText cat]]
+       (for [item menu]
+         (if (= cat (:category item))
+           (do
+             [ui/Card
+              [ui/CardText (:id item)]
               (if (not (= (:hint item) ""))
-                [ui/TextField {:label "hint"
-                               :floatingLabelText (:hint item)
-                               :onChange #(swap! order-state assoc (:attribute item) %2)}]))))))]])
+                [ui/TextField {:floatingLabelText (:hint item)
+                               :onChange #(swap! order-state assoc (:attribute item) %2)}])])))))])
 
 (defn add-name []
   [:div
