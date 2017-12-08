@@ -101,7 +101,14 @@
            (do
              [ui/Menu
               [ui/MenuItem {:primaryText (:id item)
-                             :secondaryText (:price item)}]
+                            :secondaryText (:quantity item)}]
+              [ui/FlatButton {:label "+"
+                              :onClick #(swap! order-state assoc (:quantity item) (+ 1 (:quantity item)))}]
+
+              [ui/FlatButton {:label "-"
+                              :onClick #(swap! order-state assoc (:quantity item) (- 1 (:quantity item)))}]
+
+
 
               (if (not (= (:hint item) ""))
                 [ui/TextField {:floatingLabelText (:hint item)
@@ -121,6 +128,16 @@
   [:div
     [ui/TextField {:floatingLabelText "Comments"
                    :onChange #(swap! order-state assoc :comment %2)}]])
+
+(defn payment-method []
+   [ui/Card
+    {:style { :background-color "#EEEEEE"}}
+    [ui/Checkbox  {:style {:margin "15px"}
+                   :labelPosition "left" :label "Commodore Cash"}]
+    [ui/Checkbox {:style {:margin "15px"}
+                  :labelPosition "left" :label "MealPlan"}]
+    [ui/Checkbox {:style {:margin "15px"}
+                  :labelPosition "left" :label "Flex Meal"}]])
 
 ;(defn send-order []
  ; (for item menu-items))
@@ -149,7 +166,7 @@
      [:div
       {:style {:color "#546E7A"}}
       [:b [:big "Your Total: " current-total]]]
-
+     [payment-method]
      [:div
       [ui/RaisedButton {:label "Order"
                         :primary true
