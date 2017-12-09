@@ -94,7 +94,7 @@
   [:div
    (for [cat (categories)]
      (do
-       [:b cat]
+       [:div [:b cat]]
        (for [item @order-state]
          (if (= cat (:category item))
            (do
@@ -103,7 +103,7 @@
                               :subtitle (:price item)}]
               [ui/CardText (:quantity item)]
               [ui/FlatButton {:label "+"
-                               :onClick #(swap! order-state assoc (:quantity item (+ 1 (:quantity item))))}]
+                               :onClick #(swap! order-state assoc-in (:quantity item (+ 1 (:quantity item))))}]
 
               [ui/FlatButton {:label "-"
                                :onClick #(swap! order-state assoc (:quantity item (- 1 (:quantity item))))}]
@@ -122,13 +122,13 @@
                    :style {:width "100%"
                            :margin-left "15px"}
                    :onChange #(reset! user-state (-> % .-target .-value))
-                   :value (:user order-state)}]])
+                   :value @user-state}]])
 
 (defn add-comments []
   [:div
     [ui/TextField {:floatingLabelText "Comments"
-                   :onChange #(reset! comment-state assoc :comment (-> % .-target .-value))
-                   :value (:comment order-state)}]])
+                   :onChange #(reset! comment-state (-> % .-target .-value))
+                   :value @comment-state}]])
 
 (defn payment-method []
    [ui/Card
