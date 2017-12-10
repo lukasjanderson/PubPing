@@ -89,6 +89,7 @@
 ;; ==========================================================================
 ;; View components
 ;; ==========================================================================
+(defn alert [text] (js/alert text))
 
 (defn add-order []
   [:div
@@ -137,16 +138,21 @@
                    :onChange #(reset! comment-state (-> % .-target .-value))}]])
 
 (defn payment-method []
-   [ui/Card
-    {:style { :background-color "#EEEEEE"}}
-    [ui/Checkbox  {:style {:margin "15px"}
-                   :labelPosition "left" :label "Meal Plan"}]
-    [ui/Checkbox {:style {:margin "15px"}
-                  :labelPosition "left" :label "Flex Meal"}]
-    [ui/Checkbox {:style {:margin "15px"}
-                  :labelPosition "left" :label "Meal Money"}]
-    [ui/Checkbox {:style {:margin "15px"}
-                  :labelPosition "left" :label "Commodore Cash"}]])
+   [ui/RadioButtonGroup {:style { :background-color "#EEEEEE"}
+                         :defaultSelected "light"
+                         :name "Payment Method"}
+    [ui/RadioButton  {:style {:margin "15px"}
+                      :label "Meal Plan"
+                      :value "one"}]
+    [ui/RadioButton {:style {:margin "15px"}
+                     :label "Flex Meal"
+                     :value "two"}]
+    [ui/RadioButton {:style {:margin "15px"}
+                     :label "Meal Money"
+                     :value "three"}]
+    [ui/RadioButton {:style {:margin "15px"}
+                     :label "Commodore Cash"
+                     :value "four"}]])
 
 ;(defn send-order []
  ; (for item menu-items))
@@ -166,8 +172,8 @@
      {:style {:color "#546E7A" :margin "15px"}}
      [:b [:big "Comments: "]]
 
-     (add-comments)]
-
+     (add-comments)
+     (payment-method)]
     [:div
      {:style {:color "#546E7A" :margin "15px"}}
      [:b [:big "Your Total: " (:total order-state)]]]
