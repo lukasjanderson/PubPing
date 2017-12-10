@@ -37,7 +37,7 @@
 (defonce payment-state (atom ""))
 (defonce total-state (atom 0))
 (defonce comment-state (atom ""))
-(defonce order-state (atom [{:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
+(defonce order-state (atom [{:id "Chicken Tenders" :quantity 5 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
                             {:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7 :attribute "" :hint ""}
                             {:id "Southern Chicken Wrap" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
                             {:id "Jack & Cheddar Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
@@ -90,6 +90,8 @@
 ;; View components
 ;; ==========================================================================
 
+(defn alert [text] (js/alert text))
+
 (defn add-order []
   [:div
    (for [cat (categories)]
@@ -131,13 +133,28 @@
                    :style {:width "90%"}
                    :onChange #(reset! comment-state (-> % .-target .-value))}]])
 
+(defn check-order []
+  (loop [sum 0]
+    (if (= "side" (:class item)) sum
+       (recur (+ sum (:quantity item))))))
+
+;  (let [x 0]))
+;    (for [item @order-state])))
+;      (let [count (:quantity item)]))))
+;        (if (= "entree" (:class item)))))))
+;          (do))))))
+   ;         (recur (+ x count))))))))
+  ;  x))
+
+
 (defn payment-method []
    [ui/RadioButtonGroup {:style { :background-color "#EEEEEE"}
                          :defaultSelected "light"
                          :name "Payment Method"}
     [ui/RadioButton  {:style {:margin "15px"}
                       :label "Meal Plan"
-                      :value "one"}]
+                      :value "one"
+                      :on-click (if (< 1 (check-order)) #(alert "One entree max"))}]
     [ui/RadioButton {:style {:margin "15px"}
                      :label "Flex Meal"
                      :value "two"}]
@@ -147,6 +164,10 @@
     [ui/RadioButton {:style {:margin "15px"}
                      :label "Commodore Cash"
                      :value "four"}]])
+
+
+
+
 
 
 ;(defn send-order []
@@ -162,17 +183,13 @@
      (add-user)]
 
     (add-order)
-
     [:div
      {:style {:color "#546E7A" :margin "15px"}}
      [:b [:big "Comments: "]]
-
      (add-comments)]
     [:div
      {:style {:color "#546E7A" :margin "15px"}}]
     [payment-method]
-
-
     [:div
      {:style {:color "#546E7A" :margin "15px"}}
      [:b [:big "Your Total: " (:total order-state)]]]
