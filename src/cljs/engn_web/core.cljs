@@ -94,41 +94,37 @@
   [:div
    (for [cat (categories)]
      (do
-       [:div [:b cat]]
-       (for [item @order-state]
-         (if (= cat (:category item))
-           (do
-             [ui/Card
-              [ui/CardHeader {:title (:id item)
-                              :subtitle (:price item)}]
-              [ui/CardText (:quantity item)]
-              [ui/FlatButton {:label "+"
-                               :onClick #(swap! order-state assoc-in (:quantity item (+ 1 (:quantity item))))}]
+      [ui/Card
+        [ui/CardHeader {:style {:font-weight "bold"}
+                        :title cat}]
+        (for [item @order-state]
+          (if (= cat (:category item))
+            (do
+              [ui/Card
+               [ui/CardHeader {:title (:id item)
+                               :subtitle (str "$" (:price item))}]
+               [ui/TextField {:floatingLabelText "Quantity: 0"
+                              :style {:width "90%"
+                                      :margin-left "15px"}
+                              :onChange #(swap! order-state update item update item :quantity (-> % .-target .-value))}]
 
-              [ui/FlatButton {:label "-"
-                               :onClick #(swap! order-state assoc (:quantity item (- 1 (:quantity item))))}]
-
-
-              (if (not (= (:hint item) ""))
-                [ui/TextField {:floatingLabelText (:hint item)
-                               :style {:width "100%"
-                                       :margin-left "15px"}
-                               :onChange #(swap! order-state assoc (:attribute item (-> % .-target .-value)))
-                               :value (:attribute item)}])])))))])
+               (if (not (= (:hint item) ""))
+                 [ui/TextField {:floatingLabelText (:hint item)
+                                :style {:width "90%"
+                                        :margin-left "15px"}
+                                :onChange #(swap! order-state assoc item :attribute (-> % .-target .-value))}])])))]))])
 
 (defn add-user []
   [:div
     [ui/TextField {:floatingLabelText "Please Enter Your Commodore Card Number"
-                   :style {:width "100%"
-                           :margin-left "15px"}
-                   :onChange #(reset! user-state (-> % .-target .-value))
-                   :value @user-state}]])
+                   :style {:width "90%"}
+                   :onChange #(reset! user-state (-> % .-target .-value))}]])
 
 (defn add-comments []
   [:div
     [ui/TextField {:floatingLabelText "Comments"
-                   :onChange #(reset! comment-state (-> % .-target .-value))
-                   :value @comment-state}]])
+                   :style {:width "90%"}
+                   :onChange #(reset! comment-state (-> % .-target .-value))}]])
 
 (defn payment-method []
    [ui/Card
@@ -149,21 +145,21 @@
   [ui/MuiThemeProvider
    [:div
     [:div
-     {:style {:color "#546E7A"}}
-     [:b [:big "Welcome to PubPing!"]]]
+     {:style {:color "#546E7A" :margin "15px"}}
+     [:b [:big "Welcome to PubPing!"]]
 
-    (add-user)
+     (add-user)]
 
     (add-order)
 
     [:div
-     {:style {:color "#546E7A"}}
+     {:style {:color "#546E7A" :margin "15px"}}
      [:b [:big "Comments: "]]
 
      (add-comments)]
 
     [:div
-     {:style {:color "#546E7A"}}
+     {:style {:color "#546E7A" :margin "15px"}}
      [:b [:big "Your Total: " (:total order-state)]]]
 
     [:div
