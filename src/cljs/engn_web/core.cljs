@@ -94,15 +94,14 @@
   [:div
    (for [cat (categories)]
      (do
-      [ui/Card
+      [ui/Card {:style {:background-color "#EEEEEE"}}
         [ui/CardHeader {:style {:font-weight "bold"}
                         :title cat}]
         (for [item @order-state]
           (if (= cat (:category item))
             (do
-              [ui/Card
-               [ui/CardHeader {:title (:id item)
-                               :subtitle (str "$" (:price item))}]
+              [ui/Card {:style {:background-color "#EEEEEE"}}
+               [ui/CardHeader {:title (concat [(:id item) (str "                  $") (:price item)])}]
                [ui/TextField {:floatingLabelText "Quantity: 0"
                               :style {:width "90%"
                                       :margin-left "15px"}
@@ -113,6 +112,12 @@
                                 :style {:width "90%"
                                         :margin-left "15px"}
                                 :onChange #(swap! order-state assoc item :attribute (-> % .-target .-value))}])])))]))])
+
+(defn send-order []
+  (for [item @order-state]
+    (remove (zero? (:quantity item)))))
+
+
 
 (defn add-user []
   [:div
@@ -127,16 +132,22 @@
                    :onChange #(reset! comment-state (-> % .-target .-value))}]])
 
 (defn payment-method []
-   [ui/Card
-    {:style { :background-color "#EEEEEE"}}
-    [ui/Checkbox  {:style {:margin "15px"}
-                   :labelPosition "left" :label "Meal Plan"}]
-    [ui/Checkbox {:style {:margin "15px"}
-                  :labelPosition "left" :label "Flex Meal"}]
-    [ui/Checkbox {:style {:margin "15px"}
-                  :labelPosition "left" :label "Meal Money"}]
-    [ui/Checkbox {:style {:margin "15px"}
-                  :labelPosition "left" :label "Commodore Cash"}]])
+   [ui/RadioButtonGroup {:style { :background-color "#EEEEEE"}
+                         :defaultSelected "light"
+                         :name "Payment Method"}
+    [ui/RadioButton  {:style {:margin "15px"}
+                      :label "Meal Plan"
+                      :value "one"}]
+    [ui/RadioButton {:style {:margin "15px"}
+                     :label "Flex Meal"
+                     :value "two"}]
+    [ui/RadioButton {:style {:margin "15px"}
+                     :label "Meal Money"
+                     :value "three"}]
+    [ui/RadioButton {:style {:margin "15px"}
+                     :label "Commodore Cash"
+                     :value "four"}]])
+
 
 ;(defn send-order []
  ; (for item menu-items))
@@ -157,6 +168,10 @@
      [:b [:big "Comments: "]]
 
      (add-comments)]
+    [:div
+     {:style {:color "#546E7A" :margin "15px"}}]
+    [payment-method]
+
 
     [:div
      {:style {:color "#546E7A" :margin "15px"}}
@@ -165,6 +180,7 @@
     [:div
      [ui/RaisedButton {:label "Order"
                        :primary true
+                       :margin "15px"
                        :on-click send-order}]]]])
 
 ;; -------------------------
