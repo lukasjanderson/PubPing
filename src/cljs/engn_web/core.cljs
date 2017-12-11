@@ -35,8 +35,11 @@
 
 (defonce user-state (atom ""))
 (defonce payment-state (atom ""))
+(defonce entree-count (atom 0))
+(defonce side-count (atom 0))
 (defonce total-state (atom 0))
 (defonce comment-state (atom ""))
+(defonce final-order-state (atom {}))
 (defonce order-state (atom {:c1 {:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
                             :c2 {:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7.00 :attribute "" :hint ""}
                             :c3 {:id "Southern Chicken Wrap" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
@@ -46,23 +49,23 @@
                             :c7 {:id "Veggie Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
                             :c8 {:id "Classic French Dip" :quantity 0 :class "entree" :category "Specialties" :price 7.00 :attribute "" :hint ""}
                             :c9 {:id "Veggie Wrap" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
-                            :c10 {:id "Jumbo Wings" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint "Enter choice: Buffalo, BBQ, Asian, Sriracha Honey, Buff-A-Que, Plain"}
+                            :c10 {:id "Jumbo Wings" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint "Enter sauce: Buffalo, BBQ, Asian, Sriracha Honey, Buff-A-Que, Plain"}
                             :c11 {:id "Spicy Pork Belly Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7.00 :attribute "" :hint ""}
                             :c12 {:id "Pub Turkey Club" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
                             :c13 {:id "Caesar Salad" :quantity 0 :class "entree" :category "Salads" :price 6.00 :attribute "" :hint ""}
                             :c14 {:id "Caesar Salad w/ Tofu" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint ""}
                             :c15 {:id "Caesar Salad w/ Grilled Chicken" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint ""}
-                            :c16 {:id "Cobb Salad" :quantity 0 :class "entree" :category "Salads" :price 6.00 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
-                            :c17 {:id "Cobb Salad w/ Tofu" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
-                            :c18 {:id "Cobb Salad w/ Grilled Chicken" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
-                            :c19 {:id "Cobb Salad w/ Fried Chicken" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
-                            :c20 {:id "Pub Burger" :quantity 0 :class "entree" :category "Burgers" :price 6.00 :attribute "" :hint "Enter choice: American, Swiss, Cheddar, Provolone"}
-                            :c21 {:id "Pub Burger w/ Bacon" :quantity 0 :class "entree" :category "Burgers" :price 7.00 :attribute "" :hint "Enter choice: American, Swiss, Cheddar, Provolone"}
+                            :c16 {:id "Cobb Salad" :quantity 0 :class "entree" :category "Salads" :price 6.00 :attribute "" :hint "Enter dressing: Bleu Cheese, Ranch"}
+                            :c17 {:id "Cobb Salad w/ Tofu" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint "Enter dressing: Bleu Cheese, Ranch"}
+                            :c18 {:id "Cobb Salad w/ Grilled Chicken" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint "Enter dressing: Bleu Cheese, Ranch"}
+                            :c19 {:id "Cobb Salad w/ Fried Chicken" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint "Enter dressing: Bleu Cheese, Ranch"}
+                            :c20 {:id "Pub Burger" :quantity 0 :class "entree" :category "Burgers" :price 6.00 :attribute "" :hint "Enter cheese: American, Swiss, Cheddar, Provolone"}
+                            :c21 {:id "Pub Burger w/ Bacon" :quantity 0 :class "entree" :category "Burgers" :price 7.00 :attribute "" :hint "Enter cheese: American, Swiss, Cheddar, Provolone"}
                             :c22 {:id "Vegan Burger" :quantity 0 :class "entree" :category "Burgers" :price 6.00 :attribute "" :hint ""}
                             :c23 {:id "Chocolate Chip Cookie" :quantity 0 :class "side" :category "Desserts" :price 1.29 :attribute "" :hint ""}
                             :c24 {:id "Ghirardelli Brownie" :quantity 0 :class "side" :category "Desserts" :price 1.29 :attribute "" :hint ""}
                             :c25 {:id "Ghirardelli Brownie w/ Vanilla Ice Cream" :quantity 0 :class "side" :category "Desserts" :price 4.50 :attribute "" :hint ""}
-                            :c26 {:id "Milkshake" :quantity 0 :class "side" :category "Desserts" :price 4.00 :attribute "" :hint "Enter choice: Chocolate, Strawberry, Vanilla, Special"}
+                            :c26 {:id "Milkshake" :quantity 0 :class "side" :category "Desserts" :price 4.00 :attribute "" :hint "Enter flavor: Chocolate, Strawberry, Vanilla, Special"}
                             :c27 {:id "Root Beer Float" :quantity 0 :class "side" :category "Desserts" :price 4.00 :attribute "" :hint ""}
                             :c28 {:id "Pub Fries" :quantity 0 :class "side" :category "Sides" :price 1.50 :attribute "" :hint ""}
                             :c29 {:id "Onion Rings" :quantity 0 :class "side" :category "Sides" :price 2.00 :attribute "" :hint ""}
@@ -110,19 +113,20 @@
                [ui/FlatButton {:label "+"
                                :onClick #(do
                                            (swap! order-state update (key item) merge {:quantity (inc (get (get @order-state (key item)) :quantity))})
-                                           (println "Quantity incremented to " (get (get @order-state (key item)) :quantity)))}]
+                                           (reset! total-state (+ @total-state (get (val item) :price))))}]
                [ui/FlatButton {:label "-"
                                :onClick #(do
-                                           (swap! order-state update (key item) merge {:quantity (dec (get (get @order-state (key item)) :quantity))})
-                                           (println "Quantity decremented to " (get (get @order-state (key item)) :quantity)))}]
+                                           (if (pos? (get (get @order-state (key item)) :quantity))
+                                             (do
+                                               (swap! order-state update (key item) merge {:quantity (dec (get (get @order-state (key item)) :quantity))})
+                                               (reset! total-state (- @total-state (get (val item) :price))))))}]
 
                (if (not (= (get (val item) :hint) ""))
                  [ui/TextField {:floatingLabelText (get (val item) :hint)
                                 :style {:width "90%"
                                         :margin-left "15px"}
                                 :onChange #(do
-                                             (swap! order-state update (key item) merge {:attribute (-> % .-target .-value)})
-                                             (println "Attribute changed to " (get (get @order-state (key item)) :attribute)))}])])))]))])
+                                             (swap! order-state update (key item) merge {:attribute (-> % .-target .-value)}))}])])))]))])
 
 (defn add-user []
   [:div
@@ -139,7 +143,8 @@
 (defn payment-method []
    [ui/RadioButtonGroup {:style { :background-color "#EEEEEE"}
                          :defaultSelected "light"
-                         :name "Payment Method"}
+                         :name "Payment Method"
+                         :onChange #(reset! payment-state :valueSelected)}
     [ui/RadioButton  {:style {:margin "15px"}
                       :label "Meal Plan"
                       :value "one"}]
@@ -153,8 +158,34 @@
                      :label "Commodore Cash"
                      :value "four"}]])
 
-;(defn send-order []
- ; (for item menu-items))
+(defn compact-order []
+  (reset! final-order-state @order-state)
+  (for [item @final-order-state]
+    (do
+      (if (zero? (get (val item) :quantity))
+        (swap! final-order-state dissoc (key item)))))
+  (println (vals @final-order-state)))
+
+(defn class-count []
+  (for [item @final-order-state]
+    (do
+      (if (= (get (get @final-order-state (key item)) :class) "entree")
+        (swap! entree-count inc))
+      (if (= (get (get @final-order-state (key item)) :class) "side")
+        (swap! side-count inc)))))
+
+(defn check-payment []
+  (class-count)
+  (if (or (= @payment-state "Meal Plan") (= @payment-state "Flex Meal"))
+    (if (or (and (= @entree-count 1) (= @side-count 2)) (and (zero? @entree-count) (= @side-count 3)))
+      true
+      false)
+    true))
+
+(defn send-order []
+  (compact-order))
+;  (if-not (check-payment)))
+;    ERROR))
 
 (defn main-page []
   [ui/MuiThemeProvider
@@ -179,12 +210,12 @@
 
     [:div
      {:style {:color "#546E7A" :margin "15px"}}
-     [:b [:big "Your Total: " (:total order-state)]]]
+     [:b [:big "Your Total: $" @total-state]]]
 
     [:div
      [ui/RaisedButton {:label "Order"
                        :primary true
-                       :on-click send-order}]]]])
+                       :onClick send-order}]]]])
 
 ;; -------------------------
 ;; Routes
