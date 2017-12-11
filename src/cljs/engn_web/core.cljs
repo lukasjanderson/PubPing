@@ -37,45 +37,45 @@
 (defonce payment-state (atom ""))
 (defonce total-state (atom 0))
 (defonce comment-state (atom ""))
-(defonce order-state (atom {:c1 {:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
-                            :c2 {:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7 :attribute "" :hint ""}
-                            :c3 {:id "Southern Chicken Wrap" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
-                            :c4 {:id "Jack & Cheddar Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
-                            :c5 {:id "Jack & Cheddar Quesadilla w/ Grilled Chicken" :quantity 0 :class "entree" :category "Specialties" :price 7 :attribute "" :hint ""}
-                            :c6 {:id "Jack & Cheddar Quesadilla w/ Fried Chicken" :quantity 0 :class "entree" :category "Specialties" :price 7 :attribute "" :hint ""}
-                            :c7 {:id "Veggie Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
-                            :c8 {:id "Classic French Dip" :quantity 0 :class "entree" :category "Specialties" :price 7 :attribute "" :hint ""}
-                            :c9 {:id "Veggie Wrap" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
-                            :c10 {:id "Jumbo Wings" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint "Enter choice: Buffalo, BBQ, Asian, Sriracha Honey, Buff-A-Que, Plain"}
-                            :c11 {:id "Spicy Pork Belly Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7 :attribute "" :hint ""}
-                            :c12 {:id "Pub Turkey Club" :quantity 0 :class "entree" :category "Specialties" :price 6 :attribute "" :hint ""}
-                            :c13 {:id "Caesar Salad" :quantity 0 :class "entree" :category "Salads" :price 6 :attribute "" :hint ""}
-                            :c14 {:id "Caesar Salad w/ Tofu" :quantity 0 :class "entree" :category "Salads" :price 8 :attribute "" :hint ""}
-                            :c15 {:id "Caesar Salad w/ Grilled Chicken" :quantity 0 :class "entree" :category "Salads" :price 8 :attribute "" :hint ""}
-                            :c16 {:id "Cobb Salad" :quantity 0 :class "entree" :category "Salads" :price 6 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
-                            :c17 {:id "Cobb Salad w/ Tofu" :quantity 0 :class "entree" :category "Salads" :price 8 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
-                            :c18 {:id "Cobb Salad w/ Grilled Chicken" :quantity 0 :class "entree" :category "Salads" :price 8 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
-                            :c19 {:id "Cobb Salad w/ Fried Chicken" :quantity 0 :class "entree" :category "Salads" :price 8 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
-                            :c20 {:id "Pub Burger" :quantity 0 :class "entree" :category "Burgers" :price 6 :attribute "" :hint "Enter choice: American, Swiss, Cheddar, Provolone"}
-                            :c21 {:id "Pub Burger w/ Bacon" :quantity 0 :class "entree" :category "Burgers" :price 7 :attribute "" :hint "Enter choice: American, Swiss, Cheddar, Provolone"}
-                            :c22 {:id "Vegan Burger" :quantity 0 :class "entree" :category "Burgers" :price 6 :attribute "" :hint ""}
+(defonce order-state (atom {:c1 {:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
+                            :c2 {:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7.00 :attribute "" :hint ""}
+                            :c3 {:id "Southern Chicken Wrap" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
+                            :c4 {:id "Jack & Cheddar Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
+                            :c5 {:id "Jack & Cheddar Quesadilla w/ Grilled Chicken" :quantity 0 :class "entree" :category "Specialties" :price 7.00 :attribute "" :hint ""}
+                            :c6 {:id "Jack & Cheddar Quesadilla w/ Fried Chicken" :quantity 0 :class "entree" :category "Specialties" :price 7.00 :attribute "" :hint ""}
+                            :c7 {:id "Veggie Quesadilla" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
+                            :c8 {:id "Classic French Dip" :quantity 0 :class "entree" :category "Specialties" :price 7.00 :attribute "" :hint ""}
+                            :c9 {:id "Veggie Wrap" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
+                            :c10 {:id "Jumbo Wings" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint "Enter choice: Buffalo, BBQ, Asian, Sriracha Honey, Buff-A-Que, Plain"}
+                            :c11 {:id "Spicy Pork Belly Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7.00 :attribute "" :hint ""}
+                            :c12 {:id "Pub Turkey Club" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
+                            :c13 {:id "Caesar Salad" :quantity 0 :class "entree" :category "Salads" :price 6.00 :attribute "" :hint ""}
+                            :c14 {:id "Caesar Salad w/ Tofu" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint ""}
+                            :c15 {:id "Caesar Salad w/ Grilled Chicken" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint ""}
+                            :c16 {:id "Cobb Salad" :quantity 0 :class "entree" :category "Salads" :price 6.00 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
+                            :c17 {:id "Cobb Salad w/ Tofu" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
+                            :c18 {:id "Cobb Salad w/ Grilled Chicken" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
+                            :c19 {:id "Cobb Salad w/ Fried Chicken" :quantity 0 :class "entree" :category "Salads" :price 8.00 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
+                            :c20 {:id "Pub Burger" :quantity 0 :class "entree" :category "Burgers" :price 6.00 :attribute "" :hint "Enter choice: American, Swiss, Cheddar, Provolone"}
+                            :c21 {:id "Pub Burger w/ Bacon" :quantity 0 :class "entree" :category "Burgers" :price 7.00 :attribute "" :hint "Enter choice: American, Swiss, Cheddar, Provolone"}
+                            :c22 {:id "Vegan Burger" :quantity 0 :class "entree" :category "Burgers" :price 6.00 :attribute "" :hint ""}
                             :c23 {:id "Chocolate Chip Cookie" :quantity 0 :class "side" :category "Desserts" :price 1.29 :attribute "" :hint ""}
                             :c24 {:id "Ghirardelli Brownie" :quantity 0 :class "side" :category "Desserts" :price 1.29 :attribute "" :hint ""}
                             :c25 {:id "Ghirardelli Brownie w/ Vanilla Ice Cream" :quantity 0 :class "side" :category "Desserts" :price 4.50 :attribute "" :hint ""}
-                            :c26 {:id "Milkshake" :quantity 0 :class "side" :category "Desserts" :price 4 :attribute "" :hint "Enter choice: Chocolate, Strawberry, Vanilla, Special"}
-                            :c27 {:id "Root Beer Float" :quantity 0 :class "side" :category "Desserts" :price 4 :attribute "" :hint ""}
-                            :c28 {:id "Pub Fries" :quantity 0 :class "side" :category "Sides" :price 1.5 :attribute "" :hint ""}
-                            :c29 {:id "Onion Rings" :quantity 0 :class "side" :category "Sides" :price 2 :attribute "" :hint ""}
-                            :c30 {:id "Tortilla Chips" :quantity 0 :class "side" :category "Sides" :price 1.5 :attribute "" :hint ""}
-                            :c31 {:id "Kettle Chips" :quantity 0 :class "side" :category "Sides" :price 1.5 :attribute "" :hint ""}
-                            :c32 {:id "Cajun Sweet Potato Fries" :quantity 0 :class "side" :category "Sides" :price 1.5 :attribute "" :hint ""}
-                            :c33 {:id "Cut Fruit" :quantity 0 :class "side" :category "Sides" :price 1.5 :attribute "" :hint ""}
-                            :c34 {:id "Side Salad" :quantity 0 :class "side" :category "Sides" :price 1.5 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
-                            :c35 {:id "Chips & Salsa" :quantity 0 :class "side" :category "Sides" :price 2.5 :attribute "" :hint ""}
-                            :c36 {:id "Chips & Guacamole" :quantity 0 :class "side" :category "Sides" :price 3 :attribute "" :hint ""}
-                            :c37 {:id "Chips & Queso" :quantity 0 :class "side" :category "Sides" :price 3 :attribute "" :hint ""}
+                            :c26 {:id "Milkshake" :quantity 0 :class "side" :category "Desserts" :price 4.00 :attribute "" :hint "Enter choice: Chocolate, Strawberry, Vanilla, Special"}
+                            :c27 {:id "Root Beer Float" :quantity 0 :class "side" :category "Desserts" :price 4.00 :attribute "" :hint ""}
+                            :c28 {:id "Pub Fries" :quantity 0 :class "side" :category "Sides" :price 1.50 :attribute "" :hint ""}
+                            :c29 {:id "Onion Rings" :quantity 0 :class "side" :category "Sides" :price 2.00 :attribute "" :hint ""}
+                            :c30 {:id "Tortilla Chips" :quantity 0 :class "side" :category "Sides" :price 1.50 :attribute "" :hint ""}
+                            :c31 {:id "Kettle Chips" :quantity 0 :class "side" :category "Sides" :price 1.50 :attribute "" :hint ""}
+                            :c32 {:id "Cajun Sweet Potato Fries" :quantity 0 :class "side" :category "Sides" :price 1.50 :attribute "" :hint ""}
+                            :c33 {:id "Cut Fruit" :quantity 0 :class "side" :category "Sides" :price 1.50 :attribute "" :hint ""}
+                            :c34 {:id "Side Salad" :quantity 0 :class "side" :category "Sides" :price 1.50 :attribute "" :hint "Enter choice: Bleu Cheese, Ranch"}
+                            :c35 {:id "Chips & Salsa" :quantity 0 :class "side" :category "Sides" :price 2.50 :attribute "" :hint ""}
+                            :c36 {:id "Chips & Guacamole" :quantity 0 :class "side" :category "Sides" :price 3.00 :attribute "" :hint ""}
+                            :c37 {:id "Chips & Queso" :quantity 0 :class "side" :category "Sides" :price 3.00 :attribute "" :hint ""}
                             :c38 {:id "Fountain Drink" :quantity 0 :class "side" :category "Drinks" :price 1.79 :attribute "" :hint ""}
-                            :c39 {:id "Bottled Water" :quantity 1 :class "side" :category "Drinks" :price 1.69 :attribute "" :hint ""}}))
+                            :c39 {:id "Bottled Water" :quantity 0 :class "side" :category "Drinks" :price 1.69 :attribute "" :hint ""}}))
 
 ;; List of categories
 (defn categories []
@@ -103,7 +103,7 @@
             (do
               [ui/Card
                [ui/CardHeader {:title (get (get @order-state (key item)) :id)
-                               :subtitle (str "$" (get (get @order-state (key item)) :price))}]
+                               :subtitle (str "Price: $" (get (get @order-state (key item)) :price))}]
 
                [ui/CardText "Quantity: " (get (get @order-state (key item)) :quantity)]
 
