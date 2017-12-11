@@ -33,13 +33,17 @@
 ;; App State
 ;; ==========================================================================
 
-(defonce user-state (atom ""))
-(defonce payment-state (atom ""))
+;; Helper Atoms
 (defonce entree-count (atom 0))
 (defonce side-count (atom 0))
+(defonce final-order-state (atom []))
+(defonce status-state (atom ""))
+
+;; State Atoms
+(defonce user-state (atom ""))
+(defonce payment-state (atom ""))
 (defonce total-state (atom 0))
 (defonce comment-state (atom ""))
-(defonce final-order-state (atom {}))
 (defonce order-state (atom {:c1 {:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
                             :c2 {:id "Nashville Hot Chicken Sandwich" :quantity 0 :class "entree" :category "Specialties" :price 7.00 :attribute "" :hint ""}
                             :c3 {:id "Southern Chicken Wrap" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
@@ -105,8 +109,8 @@
           (if (= cat (get (val item) :category))
             (do
               [ui/Card
-               [ui/CardHeader {:title (get (get @order-state (key item)) :id)
-                               :subtitle (str "Price: $" (get (get @order-state (key item)) :price))}]
+               [ui/CardHeader {:title (get (val item) :id)
+                               :subtitle (str "Price: $" (get (val item) :price))}]
 
                [ui/CardText "Quantity: " (get (get @order-state (key item)) :quantity)]
 
@@ -145,7 +149,7 @@
 
 (defn add-payment []
    [ui/RadioButtonGroup {:style { :background-color "#EEEEEE"}
-                         :defaultSelected "light"
+                         :defaultSelected "Meal Plan"
                          :name "Payment Method"
                          :onChange #(reset! payment-state (-> % .-target .-value))}
     [ui/RadioButton  {:style {:margin "15px"}
@@ -161,14 +165,6 @@
                      :label "Commodore Cash"
                      :value "Commodore Cash"}]])
 
-(defn compact-order []
-  (reset! final-order-state @order-state)
-  (for [item @final-order-state]
-    (do
-      (if (zero? (get (val item) :quantity))
-        (swap! final-order-state dissoc (key item)))))
-  (println (vals @final-order-state)))
-
 (defn check-payment []
   (if (or (= @payment-state "Meal Plan") (= @payment-state "Flex Meal"))
     (if (or (and (= @entree-count 1) (= @side-count 2))
@@ -178,12 +174,19 @@
     true))
 
 (defn send-order []
-;  (compact-order))
+  (reset! final-order-state (filter #(pos? (get % :quantity)) (vals @order-state)))
   (if-not (check-payment)
-;    DIALOG: Invalid meal selection))
-    (println "Invalid meal")
-;    DIALOG: Order sent!
-    (println "Order sent")))
+    (do
+      (reset! status-state "Invalid meal selection"))
+    (do
+      (let [package {:user @user-state
+                     :order @final-order-state
+                     :total @total-state
+                     :payment @payment-state
+                     :comments @comment-state}]
+        (println package))
+        ; send package through Socket
+      (reset! status-state "Order sent!"))))
 
 (defn main-page []
   [ui/MuiThemeProvider
@@ -213,7 +216,11 @@
     [:div
      [ui/RaisedButton {:label "Order"
                        :primary true
-                       :onClick send-order}]]]])
+                       :onClick send-order}]]
+
+    [:div
+     [ui/Card
+      [ui/CardText @status-state]]]]])
 
 ;; -------------------------
 ;; Routes
