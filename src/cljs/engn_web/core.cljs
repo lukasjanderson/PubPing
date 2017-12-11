@@ -179,9 +179,11 @@
 
 (defn send-order []
 ;  (compact-order))
-  (if-not (check-payment)))
+  (if-not (check-payment)
 ;    DIALOG: Invalid meal selection))
-;    DIALOG: Meal sent! (also send meal)
+    (println "Invalid meal")
+;    DIALOG: Order sent!
+    (println "Order sent")))
 
 (defn main-page []
   [ui/MuiThemeProvider
