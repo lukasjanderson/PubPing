@@ -124,14 +124,6 @@
                                              (swap! order-state update (key item) merge {:attribute (-> % .-target .-value)})
                                              (println "Attribute changed to " (get (get @order-state (key item)) :attribute)))}])])))]))])
 
-(defn inc-quantity [item]
-  (println "Quantity incremented to " (inc (get (get @order-state (key item)) :quantity)))
-  (update item :quantity inc))
-
-(defn dec-quantity [item]
-  (println "Quantity decremented to " (dec (get (get @order-state (key item)) :quantity)))
-  (update item :quantity dec))
-
 (defn add-user []
   [:div
     [ui/TextField {:floatingLabelText "Please Enter Your Commodore Card Number"
