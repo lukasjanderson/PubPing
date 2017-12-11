@@ -98,31 +98,38 @@
       [ui/Card
         [ui/CardHeader {:style {:font-weight "bold"}
                         :title cat}]
-        (seq @order-state)
         (for [item @order-state]
           (if (= cat (get (val item) :category))
             (do
               [ui/Card
-               [ui/CardHeader {:title (get (val item) :id)
-                               :subtitle (str "$" (get (val item) :price))}]
+               [ui/CardHeader {:title (get (get @order-state (key item)) :id)
+                               :subtitle (str "$" (get (get @order-state (key item)) :price))}]
 
                [ui/CardText "Quantity: " (get (get @order-state (key item)) :quantity)]
 
                [ui/FlatButton {:label "+"
-                               :onClick #(swap! order-state update (key item) inc-quantity)}]
+                               :onClick #(do
+                                           (swap! order-state update (key item) merge {:quantity (inc (get (get @order-state (key item)) :quantity))})
+                                           (println "Quantity incremented to " (get (get @order-state (key item)) :quantity)))}]
                [ui/FlatButton {:label "-"
-                               :onClick #(swap! order-state update (key item) dec-quantity)}]
+                               :onClick #(do
+                                           (swap! order-state update (key item) merge {:quantity (dec (get (get @order-state (key item)) :quantity))})
+                                           (println "Quantity decremented to " (get (get @order-state (key item)) :quantity)))}]
 
                (if (not (= (get (val item) :hint) ""))
                  [ui/TextField {:floatingLabelText (get (val item) :hint)
                                 :style {:width "90%"
                                         :margin-left "15px"}
-                                :onChange #(swap! order-state update (key item) merge {:attribute (-> % .-target .-value)})}])])))]))])
+                                :onChange #(do
+                                             (swap! order-state update (key item) merge {:attribute (-> % .-target .-value)})
+                                             (println "Attribute changed to " (get (get @order-state (key item)) :attribute)))}])])))]))])
 
 (defn inc-quantity [item]
+  (println "Quantity incremented to " (inc (get (get @order-state (key item)) :quantity)))
   (update item :quantity inc))
 
 (defn dec-quantity [item]
+  (println "Quantity decremented to " (dec (get (get @order-state (key item)) :quantity)))
   (update item :quantity dec))
 
 (defn add-user []
@@ -172,8 +179,12 @@
      {:style {:color "#546E7A" :margin "15px"}}
      [:b [:big "Comments: "]]
 
-     (add-comments)
+     (add-comments)]
+    [:div
+     {:style {:color "#546E7A" :margin "15px"}}
+     [:b [:big "Payment Method: "]]
      (payment-method)]
+
     [:div
      {:style {:color "#546E7A" :margin "15px"}}
      [:b [:big "Your Total: " (:total order-state)]]]
