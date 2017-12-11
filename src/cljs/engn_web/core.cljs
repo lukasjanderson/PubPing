@@ -41,7 +41,7 @@
 
 ;; State Atoms
 (defonce user-state (atom ""))
-(defonce payment-state (atom ""))
+(defonce payment-state (atom "Meal Plan"))
 (defonce total-state (atom 0))
 (defonce comment-state (atom ""))
 (defonce order-state (atom {:c1 {:id "Chicken Tenders" :quantity 0 :class "entree" :category "Specialties" :price 6.00 :attribute "" :hint ""}
