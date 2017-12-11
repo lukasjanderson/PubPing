@@ -64,9 +64,9 @@
                             :c22 {:id "Vegan Burger" :quantity 0 :class "entree" :category "Burgers" :price 6.00 :attribute "" :hint ""}
                             :c23 {:id "Chocolate Chip Cookie" :quantity 0 :class "side" :category "Desserts" :price 1.29 :attribute "" :hint ""}
                             :c24 {:id "Ghirardelli Brownie" :quantity 0 :class "side" :category "Desserts" :price 1.29 :attribute "" :hint ""}
-                            :c25 {:id "Ghirardelli Brownie w/ Vanilla Ice Cream" :quantity 0 :class "side" :category "Desserts" :price 4.50 :attribute "" :hint ""}
-                            :c26 {:id "Milkshake" :quantity 0 :class "side" :category "Desserts" :price 4.00 :attribute "" :hint "Enter flavor: Chocolate, Strawberry, Vanilla, Special"}
-                            :c27 {:id "Root Beer Float" :quantity 0 :class "side" :category "Desserts" :price 4.00 :attribute "" :hint ""}
+                            :c25 {:id "Ghirardelli Brownie w/ Vanilla Ice Cream" :quantity 0 :class "entree" :category "Desserts" :price 4.50 :attribute "" :hint ""}
+                            :c26 {:id "Milkshake" :quantity 0 :class "entree" :category "Desserts" :price 4.00 :attribute "" :hint "Enter flavor: Chocolate, Strawberry, Vanilla, Special"}
+                            :c27 {:id "Root Beer Float" :quantity 0 :class "entree" :category "Desserts" :price 4.00 :attribute "" :hint ""}
                             :c28 {:id "Pub Fries" :quantity 0 :class "side" :category "Sides" :price 1.50 :attribute "" :hint ""}
                             :c29 {:id "Onion Rings" :quantity 0 :class "side" :category "Sides" :price 2.00 :attribute "" :hint ""}
                             :c30 {:id "Tortilla Chips" :quantity 0 :class "side" :category "Sides" :price 1.50 :attribute "" :hint ""}
@@ -113,13 +113,16 @@
                [ui/FlatButton {:label "+"
                                :onClick #(do
                                            (swap! order-state update (key item) merge {:quantity (inc (get (get @order-state (key item)) :quantity))})
-                                           (reset! total-state (+ @total-state (get (val item) :price))))}]
+                                           (reset! total-state (+ @total-state (get (val item) :price)))
+                                           (if (= (get (val item) :class) "entree") (swap! entree-count inc) (swap! side-count inc)))}]
+
                [ui/FlatButton {:label "-"
                                :onClick #(do
                                            (if (pos? (get (get @order-state (key item)) :quantity))
                                              (do
                                                (swap! order-state update (key item) merge {:quantity (dec (get (get @order-state (key item)) :quantity))})
-                                               (reset! total-state (- @total-state (get (val item) :price))))))}]
+                                               (reset! total-state (- @total-state (get (val item) :price)))
+                                               (if (= (get (val item) :class) "entree") (swap! entree-count dec) (swap! side-count dec)))))}]
 
                (if (not (= (get (val item) :hint) ""))
                  [ui/TextField {:floatingLabelText (get (val item) :hint)
@@ -140,23 +143,23 @@
                    :style {:width "90%"}
                    :onChange #(reset! comment-state (-> % .-target .-value))}]])
 
-(defn payment-method []
+(defn add-payment []
    [ui/RadioButtonGroup {:style { :background-color "#EEEEEE"}
                          :defaultSelected "light"
                          :name "Payment Method"
-                         :onChange #(reset! payment-state :valueSelected)}
+                         :onChange #(reset! payment-state (-> % .-target .-value))}
     [ui/RadioButton  {:style {:margin "15px"}
                       :label "Meal Plan"
-                      :value "one"}]
+                      :value "Meal Plan"}]
     [ui/RadioButton {:style {:margin "15px"}
                      :label "Flex Meal"
-                     :value "two"}]
+                     :value "Flex Meal"}]
     [ui/RadioButton {:style {:margin "15px"}
                      :label "Meal Money"
-                     :value "three"}]
+                     :value "Meal Money"}]
     [ui/RadioButton {:style {:margin "15px"}
                      :label "Commodore Cash"
-                     :value "four"}]])
+                     :value "Commodore Cash"}]])
 
 (defn compact-order []
   (reset! final-order-state @order-state)
@@ -166,26 +169,19 @@
         (swap! final-order-state dissoc (key item)))))
   (println (vals @final-order-state)))
 
-(defn class-count []
-  (for [item @final-order-state]
-    (do
-      (if (= (get (get @final-order-state (key item)) :class) "entree")
-        (swap! entree-count inc))
-      (if (= (get (get @final-order-state (key item)) :class) "side")
-        (swap! side-count inc)))))
-
 (defn check-payment []
-  (class-count)
   (if (or (= @payment-state "Meal Plan") (= @payment-state "Flex Meal"))
-    (if (or (and (= @entree-count 1) (= @side-count 2)) (and (zero? @entree-count) (= @side-count 3)))
+    (if (or (and (= @entree-count 1) (= @side-count 2))
+            (and (zero? @entree-count) (= @side-count 3)))
       true
       false)
     true))
 
 (defn send-order []
-  (compact-order))
-;  (if-not (check-payment)))
-;    ERROR))
+;  (compact-order))
+  (if-not (check-payment)))
+;    DIALOG: Invalid meal selection))
+;    DIALOG: Meal sent! (also send meal)
 
 (defn main-page []
   [ui/MuiThemeProvider
@@ -206,7 +202,7 @@
     [:div
      {:style {:color "#546E7A" :margin "15px"}}
      [:b [:big "Payment Method: "]]
-     (payment-method)]
+     (add-payment)]
 
     [:div
      {:style {:color "#546E7A" :margin "15px"}}
